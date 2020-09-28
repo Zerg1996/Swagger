@@ -110,3 +110,45 @@ card:
     secure_code:
       type: string
       example: "070"
+
+post_customer:
+  type: object
+  required:
+    - "id"
+    - "name"
+    - "phone"
+    - "email"
+    - "addresses"
+    - "payment_data"
+    - "login"
+    - "password"
+  properties:
+    id:
+      type: string
+      format: uuid
+      example: d290f1ee-6c54-4b01-90e6-d701748f0851
+    name:
+      type: string
+      example: "Alex"
+    phone:
+      type: string
+      example: "+49162344312"
+    email:
+      type: string
+      format: email
+      example: "cook@gmail.com"
+    addresses:
+      type: array
+      items:
+        $ref: 'https://raw.githubusercontent.com/Zerg1996/Swagger/master/customer.yaml#/address'
+      payment_data:
+        type: array
+        items:
+          $ref: 'https://raw.githubusercontent.com/Zerg1996/Swagger/master/customer.yaml#/card'
+    login:
+      type: string
+      example: "Alex1946"
+    password:
+      type: string
+      description: "Это не пароль, а хеш от него! Пароли на сервере не хранятся, только хеши"
+      example: "123XDCM324"
