@@ -240,7 +240,7 @@ order_dish:
         - "in_cooking"
         - "ready"
     date_and_time:
-      $ref: 'https://raw.githubusercontent.com/Zerg1996/Swagger/master/order.yaml#/order_position_date_and_time'
+      $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/order.yaml#/order_date_and_time"
     changed_ingredients:
       type: object
       additionalProperties:
