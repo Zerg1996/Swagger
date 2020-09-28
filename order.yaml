@@ -33,12 +33,12 @@ order:
     positions:
       type: array
       items:
-        $ref: 'https://raw.githubusercontent.com/Zerg1996/Swagger/master/customer.yaml#/order_dish'
+        $ref: 'https://raw.githubusercontent.com/Zerg1996/Swagger/master/order.yaml#/order_dish'
     delivery_address:
       type: string
       example: "Москва, Лучший адресс, 12"
     date_and_time:
-      $ref: 'https://raw.githubusercontent.com/Zerg1996/Swagger/master/customer.yaml#/order_date_and_time'
+      $ref: 'https://raw.githubusercontent.com/Zerg1996/Swagger/master/order.yaml#/order_date_and_time'
     status:
       type: "string"
       enum:
@@ -240,7 +240,7 @@ order_dish:
         - "in_cooking"
         - "ready"
     date_and_time:
-      $ref: '#/definitions/order_position_date_and_time'
+      $ref: 'https://raw.githubusercontent.com/Zerg1996/Swagger/master/order.yaml#/order_position_date_and_time'
     changed_ingredients:
       type: object
       additionalProperties:
