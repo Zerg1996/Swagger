@@ -56,7 +56,7 @@ person:
       example: "4256 123456"
       description: "Паспортные данные"
     permissions:
-      $ref: '#/definitions/permission'
+      $ref: '#https://raw.githubusercontent.com/Zerg1996/Swagger/master/permission.yaml#/permission'
     status:
       type: string
       enum:
@@ -64,55 +64,55 @@ person:
         - "logged_in_ready_to_work"
         - "logged_in_not_ready_to_work"
 
-  service_app_post_person:
-    type: object
-    required:
-      - "id"
-      - "work_place"
-      - "name"
-      - "phone"
-      - "addresses"
-      - "address"
-      - "staff_role"
-      - "login"
-      - "password"
-      - "photo"
-      - "identification_data"
-      - "permissions"
-    properties:
-      id:
-        type: string
-        format: uuid
-      work_place:
-        description: "Тут должно быть id кухни где он работает"
-        type: string
-        format: uuid
-      name:
-        type: string
-        example: "Alex"
-      phone:
-        type: string
-        example: "+49162344312"
-      addresses:
-        type: string
-        example: "Москва Мой дом 3"
-      staff_role:
-        type: string
-        enum: ["manager", "courier", "packer", "{cook: Enum [A, B, C, D, E, F]}", "administrator"]
-      login:
-        type: string
-        example: "Alex1946"
-      password:
-        type: string
-        description: "Это не пароль, а хеш от него! Пароли на сервере не хранятся, только хеши"
-        example: "123XDCM324"
-      photo:
-        type: string
-        description: "Ссылка на картинку"
-        example: "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png"
-      identification_data:
-        type: string
-        example: "4256 123456"
-        description: "Паспортные данные"
-      permissions:
-        $ref: '#https://raw.githubusercontent.com/Zerg1996/Swagger/master/permission.yaml#/permission'
+service_app_post_person:
+  type: object
+  required:
+    - "id"
+    - "work_place"
+    - "name"
+    - "phone"
+    - "addresses"
+    - "address"
+    - "staff_role"
+    - "login"
+    - "password"
+    - "photo"
+    - "identification_data"
+    - "permissions"
+  properties:
+    id:
+      type: string
+      format: uuid
+    work_place:
+      description: "Тут должно быть id кухни где он работает"
+      type: string
+      format: uuid
+    name:
+      type: string
+      example: "Alex"
+    phone:
+      type: string
+      example: "+49162344312"
+    addresses:
+      type: string
+      example: "Москва Мой дом 3"
+    staff_role:
+      type: string
+      enum: ["manager", "courier", "packer", "{cook: Enum [A, B, C, D, E, F]}", "administrator"]
+    login:
+      type: string
+      example: "Alex1946"
+    password:
+      type: string
+      description: "Это не пароль, а хеш от него! Пароли на сервере не хранятся, только хеши"
+      example: "123XDCM324"
+    photo:
+      type: string
+      description: "Ссылка на картинку"
+      example: "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png"
+    identification_data:
+      type: string
+      example: "4256 123456"
+      description: "Паспортные данные"
+    permissions:
+      $ref: '#https://raw.githubusercontent.com/Zerg1996/Swagger/master/permission.yaml#/permission'
