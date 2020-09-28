@@ -95,7 +95,7 @@ post_order:
     positions:
       type: array
       items:
-        $ref: '#/definitions/post_order_dish'
+        $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/order.yaml#/post_order_dish"
     delivery_address:
       type: string
       example: "Москва, Лучший адресс, 12"
