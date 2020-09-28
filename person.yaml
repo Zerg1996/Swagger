@@ -56,7 +56,7 @@ person:
       example: "4256 123456"
       description: "Паспортные данные"
     permissions:
-      $ref: '#https://raw.githubusercontent.com/Zerg1996/Swagger/master/permission.yaml#/permission'
+      $ref: 'https://raw.githubusercontent.com/Zerg1996/Swagger/master/permission.yaml#/permission'
     status:
       type: string
       enum:
@@ -115,4 +115,4 @@ service_app_post_person:
       example: "4256 123456"
       description: "Паспортные данные"
     permissions:
-      $ref: '#https://raw.githubusercontent.com/Zerg1996/Swagger/master/permission.yaml#/permission'
+      $ref: 'https://raw.githubusercontent.com/Zerg1996/Swagger/master/permission.yaml#/permission'
