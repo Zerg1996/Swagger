@@ -1,4 +1,4 @@
-dishe:
+dish:
   type: object
   required:
     - "id"
