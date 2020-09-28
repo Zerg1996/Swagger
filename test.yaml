@@ -1,5 +1,0 @@
-type: object
-properties:
-  result:
-    type: integer
-    example: 2
