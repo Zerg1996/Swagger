@@ -1,5 +1,5 @@
 type: object
-  properties:
+properties:
   result:
     type: integer
     example: 2
