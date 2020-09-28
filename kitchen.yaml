@@ -14,7 +14,6 @@ kitchen:
     id:
       type: string
       format: uuid
-      example: d290f1ee-6c54-4b01-90e6-d701748f0851
     address:
       type: string
       example: "Москва, Лучший адресс, 12"
@@ -41,12 +40,12 @@ kitchen:
       type: integer
       format: int32
 
-
 post_kitchen:
   type: object
   required:
     - "id"
     - "address"
+    - "name"
   properties:
     id:
       type: string
