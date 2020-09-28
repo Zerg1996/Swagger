@@ -1,0 +1,7 @@
+item1:
+  type: string
+  example: "sadsad"
+
+item2:
+  type: string
+  example: "wow"
