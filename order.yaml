@@ -9,6 +9,7 @@ order:
     - "courier"
     - "positions"
     - "delivery_address"
+    - "delivery_comment"
     - "date_and_time"
     - "status"
     - "target_delivery_date_and_time"
@@ -37,6 +38,9 @@ order:
     delivery_address:
       type: string
       example: "Москва, Лучший адресс, 12"
+    delivery_comment:
+      type: string
+      example: "Заказ разлился и его отказались принять"
     date_and_time:
       $ref: 'https://raw.githubusercontent.com/Zerg1996/Swagger/master/order.yaml#/order_date_and_time'
     status:
@@ -99,6 +103,10 @@ post_order:
     delivery_address:
       type: string
       example: "Москва, Лучший адресс, 12"
+    delivery_comment:
+      type: string
+      example: ""
+      desctiption: "В случае неуспешного заказа курьер может написать комментарии"
     target_delivery_date_and_time:
       type: "string"
       format: "date-time"
