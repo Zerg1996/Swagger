@@ -1,0 +1,112 @@
+customer:
+  type: object
+  required:
+    - "id"
+    - "name"
+    - "phone"
+    - "email"
+    - "addresses"
+    - "payment_data"
+    - "login"
+    - "password"
+    - "level"
+    - "order_statistic"
+    - "bonus"
+  properties:
+    id:
+      type: string
+      format: uuid
+      example: d290f1ee-6c54-4b01-90e6-d701748f0851
+    name:
+      type: string
+      example: "Alex"
+    phone:
+      type: string
+      example: "+49162344312"
+    email:
+      type: string
+      format: email
+      example: "cook@gmail.com"
+    addresses:
+      type: array
+      items:
+        $ref: 'https://raw.githubusercontent.com/Zerg1996/Swagger/master/customer.yaml#/address'
+    payment_data:
+      type: array
+      items:
+        $ref: 'https://raw.githubusercontent.com/Zerg1996/Swagger/master/customer.yaml#/card'
+    login:
+      type: string
+      example: "Alex1946"
+    password:
+      type: string
+      description: "Это не пароль, а хеш от него! Пароли на сервере не хранятся, только хеши"
+      example: "123XDCM324"
+    level:
+      type: string
+      enum:
+        - "none"
+        - "silver"
+        - "gold"
+        - "platinum"
+    order_statistic:
+      type: object
+      required:
+        - "active"
+        - "completed"
+        - "rejected"
+      properties:
+        active:
+          type: integer
+        completed:
+          type: integer
+        rejected:
+          type: integer
+    bonus:
+      type: number
+      format: int32
+      example: 0
+      description: "Какой тип надо уточнить"
+
+address:
+  type: object
+  required:
+    - "address"
+    - "name"
+    - "comment"
+    - "default"
+  properties:
+    address:
+      type: string
+      example: "Москва"
+    name:
+      type: string
+      example: "Alex"
+    comment:
+      type: string
+      example: "Въезд со двора"
+    default:
+      type: boolean
+      example: true
+      description: "Значения адресса по умолчанию true - значит это адресс по умолчанию true только у одного адресса"
+
+card:
+  type: object
+  required:
+    - "number"
+    - "holder"
+    - "expiry_date"
+    - "secure_code"
+  properties:
+    number:
+      type: string
+      example: "1234-1234-1234-1234"
+    expiry_date:
+      type: string
+      example: "01/12"
+    holder:
+      type: string
+      example: "VASYA PUPKIN"
+    secure_code:
+      type: string
+      example: "070"

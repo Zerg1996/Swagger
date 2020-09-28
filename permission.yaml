@@ -1,0 +1,126 @@
+permission:
+  type: object
+  required:
+    - "orders"
+    - "incompany_orders"
+    - "cook_conveyor"
+    - "customers"
+    - "staff"
+    - "kitchens"
+    - "dishes"
+    - "items"
+    - "administration"
+  properties:
+    orders:
+      type: object
+      required:
+        - "read"
+        - "write"
+      properties:
+        read:
+          type: boolean
+        write:
+          type: boolean
+    incompany_orders:
+      type: array
+      items:
+        type: object
+        required:
+          - "read"
+          - "write"
+          - "kitchen"
+        properties:
+          read:
+            type: boolean
+          write:
+            type: boolean
+          kitchen:
+            type: string
+            format: uuid
+    cook_conveyor:
+      type: array
+      items:
+        type: object
+        required:
+          - "read"
+          - "write"
+        properties:
+          read:
+            type: boolean
+          write:
+            type: boolean
+    customers:
+      type: object
+      required:
+        - "read"
+        - "write"
+      properties:
+        read:
+          type: boolean
+        write:
+          type: boolean
+    staff:
+      type: object
+      required:
+        - "read"
+        - "write"
+      properties:
+        read:
+          type: boolean
+        write:
+          type: boolean
+    kitchens:
+      type: object
+      required:
+        - "read"
+        - "write"
+      properties:
+        read:
+          type: boolean
+        write:
+          type: boolean
+    dishes:
+      type: object
+      required:
+        - "read"
+        - "write"
+      properties:
+        read:
+          type: boolean
+        write:
+          type: boolean
+    items:
+      type: array
+      items:
+        type: object
+        required:
+          - "read"
+          - "write"
+          - "kitchen"
+        properties:
+          read:
+            type: boolean
+          write:
+            type: boolean
+          kitchen:
+            type: string
+            format: uuid
+    administration:
+      type: array
+      items:
+        type: object
+        required:
+          - "read"
+          - "write"
+          - "manager"
+          - "kitchen"
+        properties:
+          read:
+            type: boolean
+          write:
+            type: boolean
+          manager:
+            type: boolean
+          kitchen:
+            type: string
+            format: uuid

@@ -1,0 +1,21 @@
+cuisine:
+  type: object
+  required:
+    - "id"
+    - "name"
+    - "description"
+  properties:
+    id:
+      type: string
+      format: uuid
+      example: d290f1ee-6c54-4b01-90e6-d701748f0851
+    name:
+      type: object
+      additionalProperties:
+        type: string
+      example: {"ru": "Азиатская кухня", "en": "Asian kitchen"}
+    description:
+      type: object
+      additionalProperties:
+        type: string
+      example: {"ru": "Очень остро", "en": "Very spicy"}

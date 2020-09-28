@@ -1,0 +1,47 @@
+item:
+  type: object
+  required:
+    - "id"
+    - "name"
+    - "description"
+    - "unit"
+    - "availability"
+  properties:
+    id:
+      type: string
+      format: uuid
+    name:
+      type: object
+      additionalProperties:
+        type: string
+      example: {"ru": "Картошка", "en": "Potatoe"}
+    description:
+      type: object
+      additionalProperties:
+        type: string
+      example: {"ru": "Очень большая", "en": "Very big"}
+    unit:
+      type: string
+      enum:
+        - "liter"
+        - "kg"
+        - "pcs"
+        - "gal"
+        - "lb"
+    availability:
+      type: object
+      additionalProperties:
+        type: object
+        required:
+          - "quantity"
+          - "quanity_notification"
+        properties:
+          quantity:
+            type: number
+            format: float
+          quanity_notification:
+            type: number
+            format: float
+      example:
+        "3fa85f64-5717-4562-b3fc-2c963f66afa6": {'quantity': 0.2, "quantity_notification": 0.1}
+        "3fa85f64-5717-4562-b3fc-2c963f66afa7": {'quantity': 2.3, "quantity_notification": 5.0}

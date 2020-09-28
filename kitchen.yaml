@@ -1,0 +1,59 @@
+kitchen:
+  type: object
+  required:
+    - "id"
+    - "name"
+    - "address"
+    - "weight"
+    - "day_orders"
+    - "week_orders"
+    - "months_orders"
+    - "year_orders"
+    - "all_time_orders"
+  properties:
+    id:
+      type: string
+      format: uuid
+      example: d290f1ee-6c54-4b01-90e6-d701748f0851
+    address:
+      type: string
+      example: "Москва, Лучший адресс, 12"
+    name:
+      type: string
+      example: "Москва"
+    weight:
+      type: number
+      format: float
+      example: 0.9
+    day_orders:
+      type: integer
+      format: int32
+    week_orders:
+      type: integer
+      format: int32
+    months_orders:
+      type: integer
+      format: int32
+    year_orders:
+      type: integer
+      format: int32
+    all_time_orders:
+      type: integer
+      format: int32
+
+
+post_kitchen:
+  type: object
+  required:
+    - "id"
+    - "address"
+  properties:
+    id:
+      type: string
+      format: uuid
+    address:
+      type: string
+      example: "Москва, Лучший адресс, 12"
+    name:
+      type: string
+      example: "Москва"
