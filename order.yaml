@@ -95,7 +95,7 @@ post_order:
     positions:
       type: array
       items:
-        $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/order.yaml#/post_order_dish"
+        $ref: 'https://raw.githubusercontent.com/Zerg1996/Swagger/master/order.yaml#/post_order_dish'
     delivery_address:
       type: string
       example: "Москва, Лучший адресс, 12"
@@ -127,7 +127,6 @@ post_order:
       additionalProperties:
         type: string
       example: {'mon': 1, 'tue': 1, 'wed': 0, 'thu': 0, 'fri': 0, 'sat': 1, 'sun': 1}
-
 
 post_order_dish:
   type: object
@@ -240,7 +239,7 @@ order_dish:
         - "in_cooking"
         - "ready"
     date_and_time:
-      $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/order.yaml#/order_date_and_time"
+      $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/order.yaml#/order_position_date_and_time"
     changed_ingredients:
       type: object
       additionalProperties:
