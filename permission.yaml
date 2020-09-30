@@ -38,17 +38,15 @@ permission:
             type: string
             format: uuid
     cook_conveyor:
-      type: array
-      items:
-        type: object
-        required:
-          - "read"
-          - "write"
-        properties:
-          read:
-            type: boolean
-          write:
-            type: boolean
+      type: object
+      required:
+        - "read"
+        - "write"
+      properties:
+        read:
+          type: boolean
+        write:
+          type: boolean
     customers:
       type: object
       required:

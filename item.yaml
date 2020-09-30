@@ -34,7 +34,7 @@ item:
         type: object
         required:
           - "quantity"
-          - "quanity_notification"
+          - "quantity_notification"
         properties:
           quantity:
             type: number

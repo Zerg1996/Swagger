@@ -1,0 +1,271 @@
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: cook4you API
+  # put the contact info for your development or API team
+  contact:
+    email: zerg1996@yandex.ru
+
+  description: "Это структура API. Из-за требований к ключам доступа, функции выполнения запроса не работают. "
+
+# tags are used for organizing operations
+tags:
+  - name: User app
+    description: Запросы необходимые для приложения пользователя
+
+
+schemes:
+  - "https"
+
+consumes:
+  - "application/json"
+produces:
+  - "application/json"
+
+paths:
+  /user/orders:
+    get:
+      tags:
+        - "User app"
+      summary: "Получение списка заказов"
+      description: "Формат утвержден, сервер возвращает, внутренняя логик не реализована до конца"
+      operationId: "user_app_get_order"
+      parameters:
+        - in: query
+          name: customer
+          type: string
+          format: uuid
+          required: true
+          description: "ID пользователя для которого вернуть его заказы"
+      responses:
+        200:
+          description: "Заказы пользователя с его id"
+          schema:
+            type: object
+            required:
+              - "result"
+            properties:
+              result:
+                type: array
+                items:
+                  $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/order.yaml#/order"
+
+    post:
+      tags:
+        - "User app"
+      summary: "Добавление заказа"
+      description: "Формат утвержден, сервер возвращает, внутренняя логик не реализована до конца"
+      operationId: "post_order"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Добавить заказ пользователя"
+          required: true
+          schema:
+            $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/order.yaml#/post_order"
+      responses:
+        201:
+          description: "Запрос выполен успешно"
+          schema:
+            type: object
+            required:
+              - "result"
+            properties:
+              result:
+                $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/order.yaml#/order"
+    delete:
+      tags:
+        - "User app"
+      summary: "Удаление заказа"
+      description: "Формат утвержден, сервер возвращает, внутренняя логик не реализована до конца"
+      operationId: "delete_order"
+      parameters:
+        - in: query
+          name: id
+          type: string
+          format: uuid
+          required: true
+      responses:
+        200:
+          description: "Запрос выполен успешно"
+
+  /user/customers:
+    get:
+      tags:
+        - "User app"
+      summary: "Получение информации о пользователе"
+      description: "Формат запроса на первой итерации подтвержден. Пока на сервере не реализовано. Обратите внимание что точка входа может поменяться в дальнейшем"
+      operationId: "customers"
+      parameters:
+        - in: query
+          name: id
+          type: string
+          format: uuid
+          required: true
+          description: "Отправляет свой ID чтобы получить данные по себе"
+      responses:
+        200:
+          description: "Запрос выполен успешно"
+          schema:
+            type: object
+            required:
+              - "result"
+            properties:
+              result:
+                type: array
+                items:
+                  $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/customer.yaml#/customer"
+    post:
+      tags:
+        - "User app"
+      summary: "Записать свою информацию"
+      description: "Формат запроса на первой итерации подтвержден. Пока на сервере не реализовано. Обратите внимание что точка входа может поменяться в дальнейшем"
+      operationId: "post_customer"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Новый пользователь записывает информацию о себе"
+          required: true
+          schema:
+            $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/customer.yaml#/post_customer"
+      responses:
+        201:
+          description: "Запрос выполен успешно"
+          schema:
+            type: object
+            required:
+              - "result"
+            properties:
+              result:
+                $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/customer.yaml#/customer"
+    put:
+      tags:
+        - "User app"
+      summary: "Пользователь изменяет информацию о себе"
+      description: "Пока-не-сделал. Можно менять информацию только первого уровня, например нельзя поменять имя какого-то адресса addresses->name, но можно поменять поле addresses."
+      operationId: "put_customer"
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Можно изменять все - кроме id. Соотвественно поля которые менять не надо - в тело запроса добавлять не надо."
+          schema:
+            $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/customer.yaml#/post_customer"
+          required: true
+      responses:
+        201:
+          description: "Запрос выполен успешно"
+          schema:
+            type: object
+            required:
+              - "result"
+            properties:
+              result:
+                $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/customer.yaml#/customer"
+    delete:
+      tags:
+        - "User app"
+      summary: "Удаление пользователя"
+      description: "Формат запроса на первой итерации подтвержден. Пока на сервере не реализовано. Обратите внимание что точка входа может поменяться в дальнейшем"
+      operationId: "delete_customer"
+      parameters:
+        - in: query
+          name: id
+          type: string
+          format: uuid
+          required: true
+      responses:
+        200:
+          description: "Запрос выполен успешно"
+
+  /user/dishes:
+    get:
+      tags:
+        - "User app"
+      summary: "Получение спика блюд кухни"
+      description: "Возвращает блюда которые доступны на данной кухне и с которой их можно заказать count > 0"
+      operationId: "dishes"
+      parameters:
+        - in: query
+          name: id
+          type: array
+          items:
+            type: string
+            format: uuid
+          required: true
+          description: "ID кухонь или ничего, если получить все"
+      responses:
+        200:
+          description: "Возвращает какие блюда есть на данной кухне или кухнях"
+          schema:
+            type: object
+            required:
+              - "result"
+            properties:
+              result:
+                type: array
+                items:
+                  $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/dish.yaml"
+
+  /user/kitchens:
+    get:
+      tags:
+        - "User app"
+      summary: "Получение списка кухнь"
+      description: "Получение всего спика кухонь"
+      operationId: "kitchens"
+      responses:
+        200:
+          description: "Запрос выполен успешно"
+          schema:
+            type: object
+            required:
+              - "result"
+            properties:
+              result:
+                type: array
+                items:
+                  $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/kitchen.yaml#/kitchen"
+
+  /user/cuisines:
+    get:
+      tags:
+        - "User app"
+      summary: "Получение списка видов кухнь"
+      description: "Возвращает список видов всех кухонь с описанием"
+      operationId: "cuisines"
+      responses:
+        200:
+          description: "Запрос выполен успешно"
+          schema:
+            type: object
+            required:
+              - "result"
+            properties:
+              result:
+                type: array
+                items:
+                  $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/cuisine.yaml#/cuisine"
+
+  /user/sections_content:
+    get:
+      tags:
+        - "User app"
+      summary: "Получение списка секций и их названий"
+      description: ""
+      operationId: "sections_content"
+      responses:
+        200:
+          description: "Запрос выполен успешно"
+          schema:
+            type: object
+            required:
+              - "result"
+            properties:
+              result:
+                type: array
+                items:
+                  $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/sections_content.yaml#/sections_content"
+
+# Added by API Auto Mocking Plugin
+host: virtserver.swaggerhub.com
+basePath: /alalmoskvin/cook4you.user/1.0.0
