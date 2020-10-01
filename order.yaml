@@ -36,8 +36,7 @@ order:
       items:
         $ref: 'https://raw.githubusercontent.com/Zerg1996/Swagger/master/order.yaml#/order_dish'
     delivery_address:
-      type: string
-      example: "Москва, Лучший адресс, 12"
+      $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/order.yaml#/address"
     delivery_comment:
       type: string
       example: "Заказ разлился и его отказались принять"
@@ -101,8 +100,7 @@ post_order:
       items:
         $ref: 'https://raw.githubusercontent.com/Zerg1996/Swagger/master/order.yaml#/post_order_dish'
     delivery_address:
-      type: string
-      example: "Москва, Лучший адресс, 12"
+      $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/order.yaml#/address"
     delivery_comment:
       type: string
       example: ""
@@ -303,3 +301,30 @@ order_date_and_time:
     finish_delivery:
       type: "string"
       format: "date-time"
+
+address:
+  type: object
+  required:
+    - "address"
+    - "name"
+    - "comment"
+    - "default"
+  properties:
+    city_street_building:
+      type: string
+      example: "Москва"
+    apartment:
+      type: string
+      example: "12"
+    floor:
+      type: string
+      example: "3"
+    entrance:
+      type: string
+      example: "1"
+    access_code:
+      type: string
+      example: "#123#"
+    comment:
+      type: string
+      example: "Вьезд со двора"
