@@ -76,15 +76,24 @@ address:
     - "comment"
     - "default"
   properties:
-    address:
+    city_street_building:
       type: string
       example: "Москва"
-    name:
+    apartment:
       type: string
-      example: "Alex"
+      example: "12"
+    floor:
+      type: string
+      example: "3"
+    entrance:
+      type: string
+      example: "1"
+    access_code:
+      type: string
+      example: "#123#"
     comment:
       type: string
-      example: "Въезд со двора"
+      example: "Вьезд со двора"
     default:
       type: boolean
       example: true
