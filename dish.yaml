@@ -101,8 +101,8 @@ dish:
               format: float
               description: "Валюта такая же как и у блюда"
       example:
-        "3fa85f64-5717-4562-b3fc-2c963f66afa6": [{'count': 0, 'price': -2}, {'count': 1, 'price': 0}]
-        "3fa85f64-5717-4562-b3fc-2c963f66afa7": [{'count': 1, 'price': 0}, {'count': 2, 'price': 3}]
+        "3fa85f64-5717-4562-b3fc-2c963f66afa6": [{'count': 0, 'price': -2}]
+        "3fa85f64-5717-4562-b3fc-2c963f66afa7": [{'count': 0, 'price': -3}, {'count': 2, 'price': 3}]
       description: "ingredient_id: [{multiplier: ..., price: ...}] Значение - массив из float"
     cook_specialization:
       type: array
