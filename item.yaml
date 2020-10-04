@@ -5,6 +5,7 @@ item:
     - "name"
     - "description"
     - "unit"
+    - "calorie_content"
     - "availability"
   properties:
     id:
@@ -28,6 +29,9 @@ item:
         - "pcs"
         - "gal"
         - "lb"
+    calorie_content:
+      type: number
+      format: float
     availability:
       type: object
       additionalProperties:
