@@ -328,3 +328,35 @@ address:
     comment:
       type: string
       example: "Вьезд со двора"
+
+put_order:
+  type: object
+  description: ""
+  required:
+    - "id"
+    - "customer"
+    - "kitchen"
+    - "positions"
+    - "delivery_address"
+    - "target_delivery_date_and_time"
+    - "status"
+    - "type"
+    - "incompany_order"
+  properties:
+    delivery_address:
+      $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/order.yaml#/address"
+    delivery_comment:
+      type: string
+      example: ""
+      desctiption: "В случае неуспешного заказа курьер может написать комментарии"
+    status:
+      type: "string"
+      enum:
+        - "completed"
+        - "canceled"
+        - "rejected"
+    repetitive:
+      type: object
+      additionalProperties:
+        type: string
+      example: {'mon': 1, 'tue': 1, 'wed': 0, 'thu': 0, 'fri': 0, 'sat': 1, 'sun': 1}
