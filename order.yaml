@@ -343,6 +343,9 @@ put_order:
     - "type"
     - "incompany_order"
   properties:
+    id:
+      type: string
+      format: uuid
     delivery_address:
       $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/order.yaml#/address"
     delivery_comment:
