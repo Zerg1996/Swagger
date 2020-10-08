@@ -78,6 +78,7 @@ service_app_post_person:
     - "password"
     - "photo"
     - "identification_data"
+    - "status"
     - "permissions"
   properties:
     id:
@@ -114,5 +115,11 @@ service_app_post_person:
       type: string
       example: "4256 123456"
       description: "Паспортные данные"
+    status:
+      type: string
+      enum:
+        - "not_logged_in"
+        - "logged_in_ready_to_work"
+        - "logged_in_not_ready_to_work"
     permissions:
       $ref: 'https://raw.githubusercontent.com/Zerg1996/Swagger/master/permission.yaml#/permission'
