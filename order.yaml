@@ -346,6 +346,9 @@ put_order:
     id:
       type: string
       format: uuid
+    kitchen:
+      type: string
+      format: uuid
     delivery_address:
       $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/order.yaml#/address"
     delivery_comment:
@@ -355,6 +358,11 @@ put_order:
     status:
       type: "string"
       enum:
+        - "created"
+        - "in_cooking"
+        - "waiting_for_packaging"
+        - "waiting_for_delivery"
+        - "in_delivery"
         - "completed"
         - "canceled"
         - "rejected"
