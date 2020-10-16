@@ -103,7 +103,7 @@ user_order:
     positions:
       type: array
       items:
-        $ref: 'https://raw.githubusercontent.com/Zerg1996/Swagger/master/order.yaml#/iser_order_dish'
+        $ref: 'https://raw.githubusercontent.com/Zerg1996/Swagger/master/order.yaml#/user_order_dish'
     delivery_address:
       $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/order.yaml#/address"
     date_and_time:
