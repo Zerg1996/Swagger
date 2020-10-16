@@ -43,16 +43,17 @@ sections_content:
         required:
           - "name"
           - "size"
-        name:
-          type: object
-          additionalProperties:
+        properties:
+          name:
+            type: object
+            additionalProperties:
+              type: string
+            example: {'ru': 'Сосиска в тесте', 'en': 'Curry wurst'}
+          size:
             type: string
-          example: {'ru': 'Сосиска в тесте', 'en': 'Curry wurst'}
-        size:
-          type: string
-          enum:
-            - "large"
-            - "small"
+            enum:
+              - "large"
+              - "small"
       example: {"3fa85f64-5717-4562-b3fc-2c963f66afa6": {'name': {'ru': 'Сосиска в тесте', 'en': 'Curry wurst'}, 'size': large}}
 
 #    items:
