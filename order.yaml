@@ -103,7 +103,7 @@ user_order:
     positions:
       type: array
       items:
-        $ref: 'https://raw.githubusercontent.com/Zerg1996/Swagger/master/order.yaml#/order_dish'
+        $ref: 'https://raw.githubusercontent.com/Zerg1996/Swagger/master/order.yaml#/iser_order_dish'
     delivery_address:
       $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/order.yaml#/address"
     date_and_time:
@@ -409,6 +409,68 @@ order_dish:
       type: boolean
       example: True
       description: 'Является ли блюдо из заказа пользовательским или внутри компании'
+
+user_order_dish:
+  type: object
+  required:
+    - "id"
+    - "order"
+    - "kitchen"
+    - "dish"
+    - "cook"
+    - "quantity"
+    - "details"
+    - "cook_specialization"
+    - "status"
+    - "date_and_time"
+  properties:
+    id:
+      type: string
+      format: uuid
+    order:
+      type: string
+      format: uuid
+      description: "ID заказа к которому принадлежит данное блюдо"
+    kitchen:
+      type: string
+      format: uuid
+    dish:
+      type: string
+      format: uuid
+    cook:
+      description: "Берется из таблички со стаффом и значением стафф айди"
+      type: string
+      format: uuid
+    quantity:
+      type: integer
+      format: int32
+      example: 42
+    details:
+      type: string
+      description: "Пока не знаем что тут будет - поэтому можно отправлять пока пустую строчку"
+      example: ""
+    cook_specialization:
+      type: array
+      items:
+        type: string
+      example: ["A", "C"]
+    status:
+      type: "string"
+      enum:
+        - "created"
+        - "in_cooking"
+        - "ready"
+    date_and_time:
+      $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/order.yaml#/order_position_date_and_time"
+    changed_ingredients:
+      type: object
+      additionalProperties:
+        type: number
+        format: float
+      example:
+        "3fa85f64-5717-4562-b3fc-2c963f66afa6": 0.5
+        "3fa85f64-5717-4562-b3fc-2c963f66afa7": 2
+      description: "ingredient_id(uuid): multiplier(float)"
 
 order_position_date_and_time:
   type: object
