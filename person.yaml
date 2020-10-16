@@ -76,7 +76,6 @@ service_app_post_person:
     - "staff_role"
     - "login"
     - "password"
-    - "photo"
     - "identification_data"
     - "status"
     - "permissions"

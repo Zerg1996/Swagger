@@ -72,6 +72,69 @@ order:
         type: string
       example: {'mon': True, 'tue': True, 'wed': False, 'thu': False, 'fri': False, 'sat': True, 'sun': True}
 
+
+user_order:
+  type: object
+  description: ""
+  required:
+    - "id"
+    - "customer"
+    - "kitchen"
+    - "packer"
+    - "courier"
+    - "positions"
+    - "delivery_address"
+    - "delivery_comment"
+    - "date_and_time"
+    - "status"
+    - "target_delivery_date_and_time"
+    - "type"
+    - "incompany_order"
+  properties:
+    id:
+      type: string
+      format: uuid
+    customer:
+      type: string
+      format: uuid
+    kitchen:
+      type: string
+      format: uuid
+    positions:
+      type: array
+      items:
+        $ref: 'https://raw.githubusercontent.com/Zerg1996/Swagger/master/order.yaml#/order_dish'
+    delivery_address:
+      $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/order.yaml#/address"
+    date_and_time:
+      $ref: 'https://raw.githubusercontent.com/Zerg1996/Swagger/master/order.yaml#/order_date_and_time'
+    status:
+      type: "string"
+      enum:
+        - "created"
+        - "in_cooking"
+        - "waiting_for_packaging"
+        - "waiting_for_delivery"
+        - "in_delivery"
+        - "completed"
+        - "canceled"
+        - "rejected"
+      description: ""
+    target_delivery_date_and_time:
+      type: "string"
+      format: "date-time"
+    type:
+      type: string
+      enum:
+        - "order"
+        - "template"
+    repetitive:
+      type: object
+      additionalProperties:
+        type: string
+      example: {'mon': True, 'tue': True, 'wed': False, 'thu': False, 'fri': False, 'sat': True, 'sun': True}
+
+
 post_order:
   type: object
   description: ""
@@ -128,6 +191,47 @@ post_order:
       type: boolean
       example: False
       description: 'Является ли заказ пользовательским или внутри компании'
+    repetitive:
+      type: object
+      additionalProperties:
+        type: string
+      example: {'mon': 1, 'tue': 1, 'wed': 0, 'thu': 0, 'fri': 0, 'sat': 1, 'sun': 1}
+
+post_user_order:
+  type: object
+  description: ""
+  required:
+    - "id"
+    - "customer"
+    - "kitchen"
+    - "positions"
+    - "delivery_address"
+    - "target_delivery_date_and_time"
+    - "type"
+  properties:
+    id:
+      type: string
+      format: uuid
+    customer:
+      type: string
+      format: uuid
+    kitchen:
+      type: string
+      format: uuid
+    positions:
+      type: array
+      items:
+        $ref: 'https://raw.githubusercontent.com/Zerg1996/Swagger/master/order.yaml#/post_order_dish'
+    delivery_address:
+      $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/order.yaml#/address"
+    target_delivery_date_and_time:
+      type: "string"
+      format: "date-time"
+    type:
+      type: string
+      enum:
+        - "order"
+        - "template"
     repetitive:
       type: object
       additionalProperties:

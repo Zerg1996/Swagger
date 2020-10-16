@@ -49,3 +49,31 @@ item:
       example:
         "3fa85f64-5717-4562-b3fc-2c963f66afa6": {'quantity': 0.2, "quantity_notification": 0.1}
         "3fa85f64-5717-4562-b3fc-2c963f66afa7": {'quantity': 2.3, "quantity_notification": 5.0}
+
+user_item:
+  type: object
+  required:
+    - "id"
+    - "name"
+    - "unit"
+    - "calorie_content"
+  properties:
+    id:
+      type: string
+      format: uuid
+    name:
+      type: object
+      additionalProperties:
+        type: string
+      example: {"ru": "Картошка", "en": "Potatoe"}
+    unit:
+      type: string
+      enum:
+        - "liter"
+        - "kg"
+        - "pcs"
+        - "gal"
+        - "lb"
+    calorie_content:
+      type: number
+      format: float

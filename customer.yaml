@@ -8,7 +8,6 @@ customer:
     - "addresses"
     - "payment_data"
     - "login"
-    - "password"
     - "level"
     - "order_statistic"
     - "bonus"
@@ -38,10 +37,6 @@ customer:
     login:
       type: string
       example: "Alex1946"
-    password:
-      type: string
-      description: "Это не пароль, а хеш от него! Пароли на сервере не хранятся, только хеши"
-      example: "123XDCM324"
     level:
       type: string
       enum:

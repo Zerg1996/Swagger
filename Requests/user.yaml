@@ -12,7 +12,8 @@ info:
 tags:
   - name: User app
     description: Запросы необходимые для приложения пользователя
-
+  - name: Help
+    description: Вспомогательные запросы
 
 schemes:
   - "https"
@@ -23,12 +24,141 @@ produces:
   - "application/json"
 
 paths:
+  /user/order_possibility:
+    get:
+      tags:
+        - "Help"
+      summary: "Проверка возможности заказа блюда"
+      operationId: "order_possibility"
+      description: "Вызов запроса на посылку смс на указанный номер; в смс будет 6-значный код; запрос стоит денег - не спамьте им"
+      parameters:
+        - in: "query"
+          name: city_street_building
+          type: string
+          required: true
+        - in: "query"
+          name: dishes
+          type: string
+          format: uuid
+          required: true
+      responses:
+        200:
+          description: "Успешный запрос"
+          schema:
+            type: object
+            required:
+              - "kitchen"
+              - "dishes"
+            properties:
+              kitchen:
+                type: string
+                format: uuid
+              dishes:
+                type: array
+                items:
+                  type: string
+                  format: uuid
+
+  /user/one_time_password:
+    get:
+      tags:
+        - "Help"
+      summary: "Получение одноразового 6-значного пароля"
+      operationId: "one_time_password"
+      description: "Вызов запроса на посылку смс на указанный номер; в смс будет 6-значный код; запрос стоит денег - не спамьте им"
+      parameters:
+        - in: "query"
+          name: phone
+          type: string
+          required: true
+      responses:
+        200:
+          description: "Успешный запрос"
+
+
+  /user/check_unique_data:
+    get:
+      tags:
+        - "Help"
+      summary: "Проверка уникальности пользовательской информации"
+      operationId: "check_unique_data"
+      description: "Проверяет есть ли пользователь с данной информацией"
+      parameters:
+        - in: "query"
+          name: phone
+          type: string
+          required: true
+        - in: "query"
+          name: login
+          type: string
+          required: true
+      responses:
+        200:
+          description: "Успешный запрос"
+          schema:
+            type: object
+            required:
+              - "result"
+            properties:
+              result:
+                type: object
+                required:
+                  - "ok"
+                  - "login_exist"
+                  - "phone_exist"
+                properties:
+                  ok:
+                    type: boolean
+                    description: "В случае если логин и телефон свободный - значение true, иначе - false"
+                    example: false
+                  login_exist:
+                    type: boolean
+                  phone_exist:
+                    type: boolean
+
+  /user/login:
+    get:
+      tags:
+        - "Help"
+      summary: "Проверка на корректность пароля пользователя по его логину или телефону"
+      operationId: "login"
+      parameters:
+        - in: "query"
+          name: phone
+          type: string
+        - in: "query"
+          name: login
+          type: string
+        - in: "query"
+          name: password
+          type: string
+          required: true
+        - in: "query"
+          name: otp
+          type: string
+      responses:
+        200:
+          description: "Успешный запрос"
+          schema:
+            type: object
+            required:
+              - "result"
+            properties:
+              result:
+                type: object
+                required:
+                  - "ok"
+                properties:
+                  ok:
+                    type: boolean
+                    description: "Корректен ли пароль или нет"
+                    example: false
+
   /user/orders:
     get:
       tags:
         - "User app"
       summary: "Получение списка заказов"
-      description: "Формат утвержден, сервер возвращает, внутренняя логик не реализована до конца"
       operationId: "user_app_get_order"
       parameters:
         - in: query
@@ -54,7 +184,6 @@ paths:
       tags:
         - "User app"
       summary: "Добавление заказа"
-      description: "Формат утвержден, сервер возвращает, внутренняя логик не реализована до конца"
       operationId: "post_order"
       parameters:
         - in: "body"
@@ -73,36 +202,22 @@ paths:
             properties:
               result:
                 $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/order.yaml#/order"
-    delete:
-      tags:
-        - "User app"
-      summary: "Удаление заказа"
-      description: "Формат утвержден, сервер возвращает, внутренняя логик не реализована до конца"
-      operationId: "delete_order"
-      parameters:
-        - in: query
-          name: id
-          type: string
-          format: uuid
-          required: true
-      responses:
-        200:
-          description: "Запрос выполен успешно"
 
   /user/customers:
     get:
       tags:
         - "User app"
       summary: "Получение информации о пользователе"
-      description: "Формат запроса на первой итерации подтвержден. Пока на сервере не реализовано. Обратите внимание что точка входа может поменяться в дальнейшем"
+      description: "В качестве параметров - информация по которой будет искаться пользователь"
       operationId: "customers"
       parameters:
         - in: query
-          name: id
+          name: phone
           type: string
-          format: uuid
-          required: true
-          description: "Отправляет свой ID чтобы получить данные по себе"
+          format: string
+        - in: query
+          name: login
+          type: string
       responses:
         200:
           description: "Запрос выполен успешно"
@@ -112,19 +227,21 @@ paths:
               - "result"
             properties:
               result:
-                type: array
-                items:
-                  $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/customer.yaml#/customer"
+                $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/customer.yaml#/customer"
     post:
       tags:
         - "User app"
       summary: "Записать свою информацию"
-      description: "Формат запроса на первой итерации подтвержден. Пока на сервере не реализовано. Обратите внимание что точка входа может поменяться в дальнейшем"
       operationId: "post_customer"
       parameters:
+        - in: query
+          name: otp
+          type: string
+          required: true
+          description: "6 значный ключ корректный одну минуту, для тестирования - ключ 'test' корректен всегда"
         - in: "body"
           name: "body"
-          description: "Новый пользователь записывает информацию о себе"
+          description: "Информация о пользователе"
           required: true
           schema:
             $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/customer.yaml#/post_customer"
@@ -142,9 +259,14 @@ paths:
       tags:
         - "User app"
       summary: "Пользователь изменяет информацию о себе"
-      description: "Пока-не-сделал. Можно менять информацию только первого уровня, например нельзя поменять имя какого-то адресса addresses->name, но можно поменять поле addresses."
+      description: "Изменяет информацию о пользователе, в случае изменения phone требуется корректный otp"
       operationId: "put_customer"
       parameters:
+        - in: query
+          name: otp
+          type: string
+          required: true
+          description: "6 значный ключ корректный одну минуту, для тестирования - ключ 'test' корректен всегда"
         - in: "body"
           name: "body"
           description: "Можно изменять все - кроме id. Соотвественно поля которые менять не надо - в тело запроса добавлять не надо."
@@ -161,41 +283,25 @@ paths:
             properties:
               result:
                 $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/customer.yaml#/customer"
-    delete:
-      tags:
-        - "User app"
-      summary: "Удаление пользователя"
-      description: "Формат запроса на первой итерации подтвержден. Пока на сервере не реализовано. Обратите внимание что точка входа может поменяться в дальнейшем"
-      operationId: "delete_customer"
-      parameters:
-        - in: query
-          name: id
-          type: string
-          format: uuid
-          required: true
-      responses:
-        200:
-          description: "Запрос выполен успешно"
 
   /user/dishes:
     get:
       tags:
         - "User app"
       summary: "Получение спика блюд кухни"
-      description: "Возвращает блюда которые доступны на данной кухне и с которой их можно заказать count > 0"
+      description: "Возвращает блюда которые доступны на данной кухне, если параметры не заполнены - возвращает все"
       operationId: "dishes"
       parameters:
         - in: query
-          name: id
+          name: kitchens
           type: array
           items:
             type: string
             format: uuid
-          required: true
-          description: "ID кухонь или ничего, если получить все"
+          description: "id кухни для которых получить блюда"
       responses:
         200:
-          description: "Возвращает какие блюда есть на данной кухне или кухнях"
+          description: "Запрос выполен успешно"
           schema:
             type: object
             required:
@@ -204,7 +310,7 @@ paths:
               result:
                 type: array
                 items:
-                  $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/dish.yaml"
+                  $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/dish.yaml#/dish"
 
   /user/kitchens:
     get:
@@ -213,6 +319,13 @@ paths:
       summary: "Получение списка кухнь"
       description: "Получение всего спика кухонь"
       operationId: "kitchens"
+      parameters:
+        - in: query
+          name: city_street_building
+          type: array
+          items:
+            type: string
+          description: "Адресс по которому вернуть кухню"
       responses:
         200:
           description: "Запрос выполен успешно"
@@ -265,6 +378,27 @@ paths:
                 type: array
                 items:
                   $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/sections_content.yaml#/sections_content"
+
+  /user/items:
+    get:
+      tags:
+        - "User app"
+      summary: "Получение списка ингридиентов"
+      description: ""
+      operationId: "items"
+      responses:
+        200:
+          description: "Получить ингридиенты на данных кухнях или кухне"
+          schema:
+            type: object
+            required:
+              - "result"
+            properties:
+              result:
+                type: array
+                items:
+                  $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/item.yaml#/item"
+
 
 # Added by API Auto Mocking Plugin
 host: virtserver.swaggerhub.com
