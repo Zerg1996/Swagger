@@ -43,6 +43,7 @@ sections_content:
         required:
           - "name"
           - "size"
+          - "type"
         properties:
           name:
             type: object
@@ -54,6 +55,11 @@ sections_content:
             enum:
               - "large"
               - "small"
+          type:
+            type: string
+            enum:
+              - "section"
+              - "dish"
       example: {"3fa85f64-5717-4562-b3fc-2c963f66afa6": {'name': {'ru': 'Сосиска в тесте', 'en': 'Curry wurst'}, 'size': large}}
 
 #    items:
