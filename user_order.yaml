@@ -103,20 +103,12 @@ post_user_order_dish:
   type: object
   required:
     - "id"
-    - "order"
-    - "kitchen"
     - "dish"
     - "quantity"
     - "details"
     - "cook_specialization"
   properties:
     id:
-      type: string
-      format: uuid
-    order:
-      type: string
-      format: uuid
-    kitchen:
       type: string
       format: uuid
     dish:
