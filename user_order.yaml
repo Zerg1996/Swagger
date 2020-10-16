@@ -1,4 +1,4 @@
-order:
+user_order:
   type: object
   description: ""
   required:
@@ -14,7 +14,6 @@ order:
     - "status"
     - "target_delivery_date_and_time"
     - "type"
-    - "incompany_order"
   properties:
     id:
       type: string
@@ -25,23 +24,14 @@ order:
     kitchen:
       type: string
       format: uuid
-    packer:
-      type: string
-      format: uuid
-    courier:
-      type: string
-      format: uuid
     positions:
       type: array
       items:
-        $ref: 'https://raw.githubusercontent.com/Zerg1996/Swagger/master/order.yaml#/order_dish'
+        $ref: 'https://raw.githubusercontent.com/Zerg1996/Swagger/master/user_order.yaml#/user_order_dish'
     delivery_address:
-      $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/order.yaml#/address"
-    delivery_comment:
-      type: string
-      example: "Заказ разлился и его отказались принять"
+      $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/user_order.yaml#/address"
     date_and_time:
-      $ref: 'https://raw.githubusercontent.com/Zerg1996/Swagger/master/order.yaml#/order_date_and_time'
+      $ref: 'https://raw.githubusercontent.com/Zerg1996/Swagger/master/user_order.yaml#/order_date_and_time'
     status:
       type: "string"
       enum:
@@ -62,17 +52,13 @@ order:
       enum:
         - "order"
         - "template"
-    incompany_order:
-      type: boolean
-      example: True
-      description: 'Является ли заказ пользовательским или внутри компании'
     repetitive:
       type: object
       additionalProperties:
         type: string
       example: {'mon': True, 'tue': True, 'wed': False, 'thu': False, 'fri': False, 'sat': True, 'sun': True}
 
-post_order:
+post_user_order:
   type: object
   description: ""
   required:
@@ -82,9 +68,7 @@ post_order:
     - "positions"
     - "delivery_address"
     - "target_delivery_date_and_time"
-    - "status"
     - "type"
-    - "incompany_order"
   properties:
     id:
       type: string
@@ -98,43 +82,24 @@ post_order:
     positions:
       type: array
       items:
-        $ref: 'https://raw.githubusercontent.com/Zerg1996/Swagger/master/order.yaml#/post_order_dish'
+        $ref: 'https://raw.githubusercontent.com/Zerg1996/Swagger/master/user_order.yaml#/post_user_order_dish'
     delivery_address:
-      $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/order.yaml#/address"
-    delivery_comment:
-      type: string
-      example: ""
-      desctiption: "В случае неуспешного заказа курьер может написать комментарии"
+      $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/user_order.yaml#/address"
     target_delivery_date_and_time:
       type: "string"
       format: "date-time"
-    status:
-      type: "string"
-      enum:
-        - "created"
-        - "in_cooking"
-        - "waiting_for_packaging"
-        - "waiting_for_delivery"
-        - "in_delivery"
-        - "completed"
-        - "canceled"
-        - "rejected"
     type:
       type: string
       enum:
         - "order"
         - "template"
-    incompany_order:
-      type: boolean
-      example: False
-      description: 'Является ли заказ пользовательским или внутри компании'
     repetitive:
       type: object
       additionalProperties:
         type: string
       example: {'mon': 1, 'tue': 1, 'wed': 0, 'thu': 0, 'fri': 0, 'sat': 1, 'sun': 1}
 
-post_order_dish:
+post_user_order_dish:
   type: object
   required:
     - "id"
@@ -144,8 +109,6 @@ post_order_dish:
     - "quantity"
     - "details"
     - "cook_specialization"
-    - "status"
-    - "incompany_order"
   properties:
     id:
       type: string
@@ -172,13 +135,6 @@ post_order_dish:
       items:
         type: string
       example: ["A", "C"]
-    status:
-      type: "string"
-      enum:
-        - "created"
-        - "in_cooking"
-        - "waiting_for_packaging"
-        - "ready"
     changed_ingredients:
       type: object
       additionalProperties:
@@ -188,12 +144,8 @@ post_order_dish:
         "3fa85f64-5717-4562-b3fc-2c963f66afa6": 0.5
         "3fa85f64-5717-4562-b3fc-2c963f66afa7": 2
       description: "ingredient_id(uuid): multiplier(float)"
-    incompany_order:
-      type: boolean
-      example: True
-      description: 'Является ли блюдо из заказа пользовательским или внутри компании'
 
-order_dish:
+user_order_dish:
   type: object
   required:
     - "id"
@@ -206,7 +158,6 @@ order_dish:
     - "cook_specialization"
     - "status"
     - "date_and_time"
-    - "incompany_order"
   properties:
     id:
       type: string
@@ -245,7 +196,7 @@ order_dish:
         - "in_cooking"
         - "ready"
     date_and_time:
-      $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/order.yaml#/order_position_date_and_time"
+      $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/user_order.yaml#/order_position_date_and_time"
     changed_ingredients:
       type: object
       additionalProperties:
@@ -255,10 +206,6 @@ order_dish:
         "3fa85f64-5717-4562-b3fc-2c963f66afa6": 0.5
         "3fa85f64-5717-4562-b3fc-2c963f66afa7": 2
       description: "ingredient_id(uuid): multiplier(float)"
-    incompany_order:
-      type: boolean
-      example: True
-      description: 'Является ли блюдо из заказа пользовательским или внутри компании'
 
 order_position_date_and_time:
   type: object
@@ -350,7 +297,7 @@ put_order:
       type: string
       format: uuid
     delivery_address:
-      $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/order.yaml#/address"
+      $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/user_order.yaml#/address"
     delivery_comment:
       type: string
       example: ""
