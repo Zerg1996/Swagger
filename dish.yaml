@@ -11,6 +11,8 @@ dish:
     - "calorie_content"
     - "availability"
     - "ingredients"
+    - "price"
+    - "price_currency"
     - "changeable_ingredients"
     - "cook_specialization"
     - "cooking_instruction"
@@ -129,6 +131,9 @@ user_dish:
     - "calorie_content"
     - "availability"
     - "ingredients"
+    - 'cook_specialization'
+    - "price"
+    - "price_currency"
     - "changeable_ingredients"
   properties:
     id:
@@ -171,6 +176,12 @@ user_dish:
       type: number
       format: int32
       example: 1234
+    cook_specialization:
+      type: array
+      items:
+        type: string
+      example: ['A', 'B']
+      description: "Описание какие типы поваров могут готовить данное блюдо"
     availability:
       type: object
       additionalProperties:
