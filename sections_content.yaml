@@ -38,20 +38,41 @@ sections_content:
       example: {'ru': 'Предложение дня', 'en': 'Main course'}
     items:
       type: object
-      required:
-        - "id"
-        - "name"
-        - "size"
-      id:
-        type: string
-        format: uuid
-      name:
+      additionalProperties:
         type: object
-        additionalProperties:
-          type: string
-        example: {'ru': 'Сосиска в тесте', 'en': 'Curry wurst'}
-      size:
-        type: string
-        enum:
-          - "large"
-          - "small"
+        required:
+          - "name"
+          - "size"
+        name:
+          type: object
+          additionalProperties:
+            type: string
+          example: {'ru': 'Сосиска в тесте', 'en': 'Curry wurst'}
+          size:
+            type: string
+            enum:
+              - "large"
+              - "small"
+      example: {"3fa85f64-5717-4562-b3fc-2c963f66afa6": {'name': {'ru': 'Сосиска в тесте', 'en': 'Curry wurst'}, 'size': large}}
+
+#    items:
+#      type: array
+#      items
+#      type: object
+#      required:
+#        - "id"
+#        - "name"
+#        - "size"
+#      id:
+#        type: string
+#        format: uuid
+#      name:
+#        type: object
+#        additionalProperties:
+#          type: string
+#        example: {'ru': 'Сосиска в тесте', 'en': 'Curry wurst'}
+#      size:
+#        type: string
+#        enum:
+#          - "large"
+#          - "small"
