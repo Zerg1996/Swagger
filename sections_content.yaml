@@ -1,9 +1,32 @@
+#sections_content:
+#  type: object
+#  required:
+#    - "id"
+#    - "name"
+#    - "dishes"
+#  properties:
+#    id:
+#      type: string
+#      format: uuid
+#    name:
+#      type: object
+#      additionalProperties:
+#        type: string
+#      example: {'ru': 'Главное блюдо', 'en': 'Main course'}
+#    dishes:
+#      type: object
+#      additionalProperties:
+#        type: string
+#      example:
+#        "3fa85f64-5717-4562-b3fc-2c963f66afa6": "large"
+#        "3fa85f64-5717-4562-b3fc-2c963f66afa7": "small"
+
 sections_content:
   type: object
   required:
     - "id"
     - "name"
-    - "dishes"
+    - "items"
   properties:
     id:
       type: string
@@ -12,11 +35,23 @@ sections_content:
       type: object
       additionalProperties:
         type: string
-      example: {'ru': 'Главное блюдо', 'en': 'Main course'}
-    dishes:
+      example: {'ru': 'Предложение дня', 'en': 'Main course'}
+    items:
       type: object
-      additionalProperties:
+      required:
+        - "id"
+        - "name"
+        - "size"
+      id:
         type: string
-      example:
-        "3fa85f64-5717-4562-b3fc-2c963f66afa6": "large"
-        "3fa85f64-5717-4562-b3fc-2c963f66afa7": "small"
+        format: uuid
+      name:
+        type: object
+        additionalProperties:
+          type: string
+        example: {'ru': 'Сосиска в тесте', 'en': 'Curry wurst'}
+      size:
+        type: string
+        enum:
+          - "large"
+          - "small"
