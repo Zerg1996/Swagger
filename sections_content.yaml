@@ -5,6 +5,7 @@ sections_content:
     - "name"
     - "type"
     - "items"
+    - "photo"
   properties:
     id:
       type: string
@@ -20,22 +21,17 @@ sections_content:
         - "main"
         - "group"
         - "subgroup"
+    photo:
+      type: string
+      example: "www.example.com"
     items:
       description: "В случае если type = subgroup то тут перечисляются id блюд, в противном случае id секций"
       type: object
       additionalProperties:
-        type: object
-        required:
-          - "size"
-          - "photo"
-        properties:
-          size:
-            type: string
-            enum:
-              - "large"
-              - "small"
-          photo:
-            type: string
+        type: string
+        enum:
+          - "large"
+          - "small"
       example:
-        "3fa85f64-5717-4562-b3fc-2c963f66afa6": {"size": "large", "photo": "www.example.com"}
-        "3fa85f64-5717-4562-b3fc-2c963f66afa7": {"size": "small", "photo": "www.example.com"}
+        "3fa85f64-5717-4562-b3fc-2c963f66afa6": "large"
+        "3fa85f64-5717-4562-b3fc-2c963f66afa7": "small"
