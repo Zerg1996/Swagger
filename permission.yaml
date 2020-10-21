@@ -12,19 +12,21 @@ permission:
     - "administration"
   properties:
     orders:
-      type: object
-      required:
-        - "read"
-        - "write"
-        - "kitchen"
-      properties:
-        read:
-          type: boolean
-        write:
-          type: boolean
-        kitchen:
-          type: string
-          format: uuid
+      type: array
+      items:
+        type: object
+        required:
+          - "read"
+          - "write"
+          - "kitchen"
+        properties:
+          read:
+            type: boolean
+          write:
+            type: boolean
+          kitchen:
+            type: string
+            format: uuid
     incompany_orders:
       type: array
       items:
@@ -62,19 +64,21 @@ permission:
         write:
           type: boolean
     staff:
-      type: object
-      required:
-        - "read"
-        - "write"
-        - "kitchen"
-      properties:
-        read:
-          type: boolean
-        write:
-          type: boolean
-        kitchen:
-          type: string
-          format: uuid
+      type: array
+      items:
+        type: object
+        required:
+          - "read"
+          - "write"
+          - "kitchen"
+        properties:
+          read:
+            type: boolean
+          write:
+            type: boolean
+          kitchen:
+            type: string
+            format: uuid
     kitchens:
       type: object
       required:
