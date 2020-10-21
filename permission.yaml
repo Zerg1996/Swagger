@@ -16,11 +16,15 @@ permission:
       required:
         - "read"
         - "write"
+        - "kitchen"
       properties:
         read:
           type: boolean
         write:
           type: boolean
+        kitchen:
+          type: string
+          format: uuid
     incompany_orders:
       type: array
       items:
@@ -62,11 +66,15 @@ permission:
       required:
         - "read"
         - "write"
+        - "kitchen"
       properties:
         read:
           type: boolean
         write:
           type: boolean
+        kitchen:
+          type: string
+          format: uuid
     kitchens:
       type: object
       required:
