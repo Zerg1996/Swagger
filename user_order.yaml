@@ -244,9 +244,7 @@ order_date_and_time:
 address:
   type: object
   required:
-    - "address"
-    - "name"
-    - "comment"
+    - "city_street_building"
     - "default"
   properties:
     city_street_building:

@@ -7,6 +7,7 @@ person:
     - "phone"
     - "address"
     - "staff_role"
+    - "specialization"
     - "geolocation"
     - "login"
     - "password"
@@ -34,6 +35,18 @@ person:
     staff_role:
       type: string
       enum: ["manager", "courier", "packer", "{cook: Enum [A, B, C, D, E, F]}", "administrator"]
+    specialization:
+      type: array
+      items:
+        type: string
+        enum:
+          - "A"
+          - "B"
+          - "C"
+          - "D"
+          - "E"
+          - "F"
+      example: ["A", "B"]
     geolocation:
       type: array
       items:
