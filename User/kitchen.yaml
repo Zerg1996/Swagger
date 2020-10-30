@@ -1,0 +1,16 @@
+kitchen:
+  type: object
+  required:
+    - "id"
+    - "name"
+    - "address"
+  properties:
+    id:
+      type: string
+      format: uuid
+    address:
+      type: string
+      example: "Москва, Лучший адресс, 12"
+    name:
+      type: string
+      example: "Ресторан Восход"

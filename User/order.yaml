@@ -1,0 +1,310 @@
+order:
+  type: object
+  description: ""
+  required:
+    - "id"
+    - "customer"
+    - "kitchen"
+    - "packer"
+    - "courier"
+    - "positions"
+    - "delivery_address"
+    - "delivery_comment"
+    - "date_and_time"
+    - "status"
+    - "target_delivery_date_and_time"
+    - "type"
+  properties:
+    id:
+      type: string
+      format: uuid
+    customer:
+      type: string
+      format: uuid
+    kitchen:
+      type: string
+      format: uuid
+    positions:
+      type: array
+      items:
+        $ref: 'https://raw.githubusercontent.com/Zerg1996/Swagger/master/user/order.yaml#/order_dish'
+    delivery_address:
+      $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/user/order.yaml#/address"
+    date_and_time:
+      $ref: 'https://raw.githubusercontent.com/Zerg1996/Swagger/master/user/order.yaml#/order_date_and_time'
+    status:
+      type: "string"
+      enum:
+        - "created"
+        - "in_cooking"
+        - "waiting_for_packaging"
+        - "waiting_for_delivery"
+        - "in_delivery"
+        - "completed"
+        - "canceled"
+        - "rejected"
+      description: ""
+    target_delivery_date_and_time:
+      type: "string"
+      format: "date-time"
+    type:
+      type: string
+      enum:
+        - "order"
+        - "template"
+    repetitive:
+      type: object
+      additionalProperties:
+        type: string
+      example: {'mon': True, 'tue': True, 'wed': False, 'thu': False, 'fri': False, 'sat': True, 'sun': True}
+
+post_order:
+  type: object
+  description: ""
+  required:
+    - "id"
+    - "customer"
+    - "kitchen"
+    - "positions"
+    - "delivery_address"
+    - "target_delivery_date_and_time"
+    - "type"
+  properties:
+    id:
+      type: string
+      format: uuid
+    customer:
+      type: string
+      format: uuid
+    kitchen:
+      type: string
+      format: uuid
+    positions:
+      type: array
+      items:
+        $ref: 'https://raw.githubusercontent.com/Zerg1996/Swagger/master/user/order.yaml#/post_order_dish'
+    delivery_address:
+      $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/user/order.yaml#/address"
+    target_delivery_date_and_time:
+      type: "string"
+      format: "date-time"
+    type:
+      type: string
+      enum:
+        - "order"
+        - "template"
+    repetitive:
+      type: object
+      additionalProperties:
+        type: string
+      example: {'mon': 1, 'tue': 1, 'wed': 0, 'thu': 0, 'fri': 0, 'sat': 1, 'sun': 1}
+
+post_order_dish:
+  type: object
+  required:
+    - "id"
+    - "dish"
+    - "quantity"
+    - "details"
+    - "cook_specialization"
+  properties:
+    id:
+      type: string
+      format: uuid
+    dish:
+      type: string
+      format: uuid
+    quantity:
+      type: integer
+      format: int32
+      example: 42
+    details:
+      type: string
+      description: "Пока не знаем что тут будет - поэтому можно отправлять пока пустую строчку"
+      example: ""
+    cook_specialization:
+      type: array
+      items:
+        type: string
+      example: ["A", "C"]
+    changed_ingredients:
+      type: object
+      additionalProperties:
+        type: number
+        format: float
+      example:
+        "3fa85f64-5717-4562-b3fc-2c963f66afa6": 0.5
+        "3fa85f64-5717-4562-b3fc-2c963f66afa7": 2
+      description: "ingredient_id(uuid): multiplier(float)"
+
+order_dish:
+  type: object
+  required:
+    - "id"
+    - "order"
+    - "kitchen"
+    - "dish"
+    - "cook"
+    - "quantity"
+    - "details"
+    - "cook_specialization"
+    - "status"
+    - "date_and_time"
+  properties:
+    id:
+      type: string
+      format: uuid
+    order:
+      type: string
+      format: uuid
+      description: "ID заказа к которому принадлежит данное блюдо"
+    kitchen:
+      type: string
+      format: uuid
+    dish:
+      type: string
+      format: uuid
+    cook:
+      description: "Берется из таблички со стаффом и значением стафф айди"
+      type: string
+      format: uuid
+    quantity:
+      type: integer
+      format: int32
+      example: 42
+    details:
+      type: string
+      description: "Пока не знаем что тут будет - поэтому можно отправлять пока пустую строчку"
+      example: ""
+    cook_specialization:
+      type: array
+      items:
+        type: string
+      example: ["A", "C"]
+    status:
+      type: "string"
+      enum:
+        - "created"
+        - "in_cooking"
+        - "ready"
+    date_and_time:
+      $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/user_order.yaml#/order_position_date_and_time"
+    changed_ingredients:
+      type: object
+      additionalProperties:
+        type: number
+        format: float
+      example:
+        "3fa85f64-5717-4562-b3fc-2c963f66afa6": 0.5
+        "3fa85f64-5717-4562-b3fc-2c963f66afa7": 2
+      description: "ingredient_id(uuid): multiplier(float)"
+
+order_position_date_and_time:
+  type: object
+  required:
+    - "start_creation"
+    - "start_cooking"
+    - "finish_cooking"
+  properties:
+    start_creation:
+      type: "string"
+      format: "date-time"
+    start_cooking:
+      type: "string"
+      format: "date-time"
+    finish_cooking:
+      type: "string"
+      format: "date-time"
+
+order_date_and_time:
+  type: object
+  required:
+    - "start_creation"
+    - "start_cooking"
+    - "start_waiting_for_delivery"
+    - "start_delivery"
+    - "finish_delivery"
+  properties:
+    start_creation:
+      type: "string"
+      format: "date-time"
+    start_cooking:
+      type: "string"
+      format: "date-time"
+    start_waiting_for_delivery:
+      type: "string"
+      format: "date-time"
+    start_delivery:
+      type: "string"
+      format: "date-time"
+    finish_delivery:
+      type: "string"
+      format: "date-time"
+
+address:
+  type: object
+  required:
+    - "city_street_building"
+    - "default"
+  properties:
+    city_street_building:
+      type: string
+      example: "Москва"
+    apartment:
+      type: string
+      example: "12"
+    floor:
+      type: string
+      example: "3"
+    entrance:
+      type: string
+      example: "1"
+    access_code:
+      type: string
+      example: "#123#"
+    comment:
+      type: string
+      example: "Вьезд со двора"
+
+put_order:
+  type: object
+  description: ""
+  required:
+    - "id"
+    - "customer"
+    - "kitchen"
+    - "positions"
+    - "delivery_address"
+    - "target_delivery_date_and_time"
+    - "status"
+    - "type"
+    - "incompany_order"
+  properties:
+    id:
+      type: string
+      format: uuid
+    kitchen:
+      type: string
+      format: uuid
+    delivery_address:
+      $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/user/order.yaml#/address"
+    delivery_comment:
+      type: string
+      example: ""
+      desctiption: "В случае неуспешного заказа курьер может написать комментарии"
+    status:
+      type: "string"
+      enum:
+        - "created"
+        - "in_cooking"
+        - "waiting_for_packaging"
+        - "waiting_for_delivery"
+        - "in_delivery"
+        - "completed"
+        - "canceled"
+        - "rejected"
+    repetitive:
+      type: object
+      additionalProperties:
+        type: string
+      example: {'mon': 1, 'tue': 1, 'wed': 0, 'thu': 0, 'fri': 0, 'sat': 1, 'sun': 1}

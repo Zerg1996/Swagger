@@ -1,0 +1,154 @@
+customer:
+  type: object
+  required:
+    - "id"
+    - "name"
+    - "phone"
+    - "email"
+    - "addresses"
+    - "payment_data"
+    - "login"
+    - "level"
+    - "order_statistic"
+    - "bonus"
+  properties:
+    id:
+      type: string
+      format: uuid
+    name:
+      type: string
+      example: "Alex"
+    phone:
+      type: string
+      example: "+49162344312"
+    email:
+      type: string
+      format: email
+      example: "cook@gmail.com"
+    addresses:
+      type: array
+      items:
+        $ref: 'https://raw.githubusercontent.com/Zerg1996/Swagger/master/user/customer.yaml#/address'
+    payment_data:
+      type: array
+      items:
+        $ref: 'https://raw.githubusercontent.com/Zerg1996/Swagger/master/user/customer.yaml#/card'
+    login:
+      type: string
+      example: "Alex1946"
+    level:
+      type: string
+      enum:
+        - "none"
+        - "silver"
+        - "gold"
+        - "platinum"
+    order_statistic:
+      type: object
+      required:
+        - "active"
+        - "completed"
+        - "rejected"
+      properties:
+        active:
+          type: integer
+        completed:
+          type: integer
+        rejected:
+          type: integer
+    bonus:
+      type: number
+      format: int32
+      example: 0
+      description: "Какой тип надо уточнить"
+
+address:
+  type: object
+  required:
+    - "city_street_building"
+    - "default"
+  properties:
+    city_street_building:
+      type: string
+      example: "Москва"
+    apartment:
+      type: string
+      example: "12"
+    floor:
+      type: string
+      example: "3"
+    entrance:
+      type: string
+      example: "1"
+    access_code:
+      type: string
+      example: "#123#"
+    comment:
+      type: string
+      example: "Вьезд со двора"
+    default:
+      type: boolean
+      example: true
+      description: "Значения адресса по умолчанию true - значит это адресс по умолчанию true только у одного адресса"
+
+card:
+  type: object
+  required:
+    - "number"
+    - "holder"
+    - "expiry_date"
+    - "secure_code"
+  properties:
+    number:
+      type: string
+      example: "1234-1234-1234-1234"
+    expiry_date:
+      type: string
+      example: "01/12"
+    holder:
+      type: string
+      example: "VASYA PUPKIN"
+    secure_code:
+      type: string
+      example: "070"
+
+post_customer:
+  type: object
+  required:
+    - "id"
+    - "name"
+    - "phone"
+    - "email"
+    - "addresses"
+    - "payment_data"
+    - "login"
+    - "password"
+  properties:
+    id:
+      type: string
+      format: uuid
+    name:
+      type: string
+      example: "Alex"
+    phone:
+      type: string
+      example: "+49162344312"
+    email:
+      type: string
+      format: email
+      example: "cook@gmail.com"
+    addresses:
+      type: array
+      items:
+        $ref: 'https://raw.githubusercontent.com/Zerg1996/Swagger/master/user/customer.yaml#/address'
+      payment_data:
+        type: array
+        items:
+          $ref: 'https://raw.githubusercontent.com/Zerg1996/Swagger/master/user/customer.yaml#/card'
+    login:
+      type: string
+      example: "Alex1946"
+    password:
+      type: string
+      description: "Это не пароль, а хеш от него! Пароли на сервере не хранятся, только хеши"
+      example: "123XDCM324"

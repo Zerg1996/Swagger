@@ -1,0 +1,27 @@
+item:
+  type: object
+  required:
+    - "id"
+    - "name"
+    - "unit"
+    - "calorie_content"
+  properties:
+    id:
+      type: string
+      format: uuid
+    name:
+      type: object
+      additionalProperties:
+        type: string
+      example: {"ru": "Картошка", "en": "Potato"}
+    unit:
+      type: string
+      enum:
+        - "liter"
+        - "kg"
+        - "pcs"
+        - "gal"
+        - "lb"
+    calorie_content:
+      type: number
+      format: float

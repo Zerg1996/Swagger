@@ -1,0 +1,37 @@
+sections_content:
+  type: object
+  required:
+    - "id"
+    - "name"
+    - "type"
+    - "items"
+    - "photo"
+  properties:
+    id:
+      type: string
+      format: uuid
+    name:
+      type: object
+      additionalProperties:
+        type: string
+      example: {'ru': 'Предложение дня', 'en': 'Main course'}
+    type:
+      type: string
+      enum:
+        - "main"
+        - "group"
+        - "subgroup"
+    photo:
+      type: string
+      example: "www.example.com"
+    items:
+      description: "В случае если type = subgroup то тут перечисляются id блюд, в противном случае id секций"
+      type: object
+      additionalProperties:
+        type: string
+        enum:
+          - "large"
+          - "small"
+      example:
+        "3fa85f64-5717-4562-b3fc-2c963f66afa6": "large"
+        "3fa85f64-5717-4562-b3fc-2c963f66afa7": "small"
