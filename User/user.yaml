@@ -179,7 +179,7 @@ paths:
               result:
                 type: array
                 items:
-                  $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/user/order.yaml#/order"
+                  $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/User/order.yaml#/order"
     post:
       tags:
         - "User app"
@@ -191,7 +191,7 @@ paths:
           description: "Добавить заказ пользователя"
           required: true
           schema:
-            $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/user/order.yaml#/post_order"
+            $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/User/order.yaml#/post_order"
       responses:
         201:
           description: "Запрос выполен успешно"
@@ -201,7 +201,7 @@ paths:
               - "result"
             properties:
               result:
-                $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/user/order.yaml#/order"
+                $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/User/order.yaml#/order"
 
   /user/customers:
     get:
@@ -227,7 +227,7 @@ paths:
               - "result"
             properties:
               result:
-                $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/user/customer.yaml#/customer"
+                $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/User/customer.yaml#/customer"
     post:
       tags:
         - "User app"
@@ -244,7 +244,7 @@ paths:
           description: "Информация о пользователе"
           required: true
           schema:
-            $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/user/customer.yaml#/post_customer"
+            $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/User/customer.yaml#/post_customer"
       responses:
         201:
           description: "Запрос выполен успешно"
@@ -254,7 +254,7 @@ paths:
               - "result"
             properties:
               result:
-                $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/user/customer.yaml#/customer"
+                $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/User/customer.yaml#/customer"
     put:
       tags:
         - "User app"
@@ -271,7 +271,7 @@ paths:
           name: "body"
           description: "Можно изменять все - кроме id. Соотвественно поля которые менять не надо - в тело запроса добавлять не надо."
           schema:
-            $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/user/customer.yaml#/post_customer"
+            $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/User/customer.yaml#/post_customer"
           required: true
       responses:
         201:
@@ -282,7 +282,7 @@ paths:
               - "result"
             properties:
               result:
-                $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/user/customer.yaml#/customer"
+                $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/User/customer.yaml#/customer"
 
   /user/dishes:
     get:
@@ -309,7 +309,7 @@ paths:
               result:
                 type: array
                 items:
-                  $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/user/dish.yaml#/dish"
+                  $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/User/dish.yaml#/dish"
 
   /user/kitchens:
     get:
@@ -335,7 +335,7 @@ paths:
               result:
                 type: array
                 items:
-                  $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/user/kitchen.yaml#/kitchen"
+                  $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/User/kitchen.yaml#/kitchen"
 
   /user/cuisines:
     get:
@@ -355,7 +355,7 @@ paths:
               result:
                 type: array
                 items:
-                  $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/user/cuisine.yaml#/cuisine"
+                  $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/User/cuisine.yaml#/cuisine"
 
   /user/sections_content:
     get:
@@ -375,7 +375,7 @@ paths:
               result:
                 type: array
                 items:
-                  $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/user/sections_content.yaml#/sections_content"
+                  $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/User/sections_content.yaml#/sections_content"
 
   /user/items:
     get:
@@ -395,7 +395,7 @@ paths:
               result:
                 type: array
                 items:
-                  $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/user/item.yaml#/item"
+                  $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/User/item.yaml#/item"
 
 
 # Added by API Auto Mocking Plugin

@@ -27,11 +27,11 @@ order:
     positions:
       type: array
       items:
-        $ref: 'https://raw.githubusercontent.com/Zerg1996/Swagger/master/user/order.yaml#/order_dish'
+        $ref: 'https://raw.githubusercontent.com/Zerg1996/Swagger/master/User/order.yaml#/order_dish'
     delivery_address:
-      $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/user/order.yaml#/address"
+      $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/User/order.yaml#/address"
     date_and_time:
-      $ref: 'https://raw.githubusercontent.com/Zerg1996/Swagger/master/user/order.yaml#/order_date_and_time'
+      $ref: 'https://raw.githubusercontent.com/Zerg1996/Swagger/master/User/order.yaml#/order_date_and_time'
     status:
       type: "string"
       enum:
@@ -82,9 +82,9 @@ post_order:
     positions:
       type: array
       items:
-        $ref: 'https://raw.githubusercontent.com/Zerg1996/Swagger/master/user/order.yaml#/post_order_dish'
+        $ref: 'https://raw.githubusercontent.com/Zerg1996/Swagger/master/User/order.yaml#/post_order_dish'
     delivery_address:
-      $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/user/order.yaml#/address"
+      $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/User/order.yaml#/address"
     target_delivery_date_and_time:
       type: "string"
       format: "date-time"
@@ -287,7 +287,7 @@ put_order:
       type: string
       format: uuid
     delivery_address:
-      $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/user/order.yaml#/address"
+      $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/User/order.yaml#/address"
     delivery_comment:
       type: string
       example: ""
