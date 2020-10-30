@@ -12,6 +12,7 @@ dish:
     - "availability"
     - "ingredients"
     - "price"
+    - "cost_price"
     - "price_currency"
     - "changeable_ingredients"
     - "cook_specialization"
@@ -57,6 +58,7 @@ dish:
       type: number
       format: int32
       example: 1234
+      description: "Содержание калорий в блюде. Считается на сервере исходя из ингридиентов входящих в блюдо и их количества."
     availability:
       type: object
       additionalProperties:
@@ -88,6 +90,10 @@ dish:
     price:
       type: number
       format: float
+    cost_price:
+      type: number
+      format: float
+      description: "Себестоимость товара, считается на сервере."
     changeable_ingredients:
       type: object
       additionalProperties:

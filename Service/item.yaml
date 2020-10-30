@@ -6,6 +6,8 @@ item:
     - "description"
     - "unit"
     - "calorie_content"
+    - "cost_price"
+    - "price_currency"
     - "availability"
   properties:
     id:
@@ -30,6 +32,12 @@ item:
         - "gal"
         - "lb"
     calorie_content:
+      type: number
+      format: float
+    price_currency:
+      type: string
+      example: "USD"
+    cost_price:
       type: number
       format: float
     availability:
