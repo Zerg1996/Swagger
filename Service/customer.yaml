@@ -29,11 +29,11 @@ customer:
     addresses:
       type: array
       items:
-        $ref: 'https://raw.githubusercontent.com/Zerg1996/Swagger/master/customer.yaml#/address'
+        $ref: 'https://raw.githubusercontent.com/Zerg1996/Swagger/master/User/customer.yaml#/address'
     payment_data:
       type: array
       items:
-        $ref: 'https://raw.githubusercontent.com/Zerg1996/Swagger/master/customer.yaml#/card'
+        $ref: 'https://raw.githubusercontent.com/Zerg1996/Swagger/master/User/customer.yaml#/card'
     login:
       type: string
       example: "Alex1946"
@@ -142,11 +142,11 @@ post_customer:
     addresses:
       type: array
       items:
-        $ref: 'https://raw.githubusercontent.com/Zerg1996/Swagger/master/customer.yaml#/address'
+        $ref: 'https://raw.githubusercontent.com/Zerg1996/Swagger/master/User/customer.yaml#/address'
       payment_data:
         type: array
         items:
-          $ref: 'https://raw.githubusercontent.com/Zerg1996/Swagger/master/customer.yaml#/card'
+          $ref: 'https://raw.githubusercontent.com/Zerg1996/Swagger/master/User/customer.yaml#/card'
     login:
       type: string
       example: "Alex1946"

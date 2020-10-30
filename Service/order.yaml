@@ -34,14 +34,14 @@ order:
     positions:
       type: array
       items:
-        $ref: 'https://raw.githubusercontent.com/Zerg1996/Swagger/master/order.yaml#/order_dish'
+        $ref: 'https://raw.githubusercontent.com/Zerg1996/Swagger/master/Service/order.yaml#/order_dish'
     delivery_address:
-      $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/order.yaml#/address"
+      $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/Service/order.yaml#/address"
     delivery_comment:
       type: string
       example: "Заказ разлился и его отказались принять"
     date_and_time:
-      $ref: 'https://raw.githubusercontent.com/Zerg1996/Swagger/master/order.yaml#/order_date_and_time'
+      $ref: 'https://raw.githubusercontent.com/Zerg1996/Swagger/master/Service/order.yaml#/order_date_and_time'
     status:
       type: "string"
       enum:
@@ -98,9 +98,9 @@ post_order:
     positions:
       type: array
       items:
-        $ref: 'https://raw.githubusercontent.com/Zerg1996/Swagger/master/order.yaml#/post_order_dish'
+        $ref: 'https://raw.githubusercontent.com/Zerg1996/Swagger/master/Service/order.yaml#/post_order_dish'
     delivery_address:
-      $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/order.yaml#/address"
+      $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/Service/order.yaml#/address"
     delivery_comment:
       type: string
       example: ""
@@ -245,7 +245,7 @@ order_dish:
         - "in_cooking"
         - "ready"
     date_and_time:
-      $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/order.yaml#/order_position_date_and_time"
+      $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/Service/order.yaml#/order_position_date_and_time"
     changed_ingredients:
       type: object
       additionalProperties:
@@ -348,7 +348,7 @@ put_order:
       type: string
       format: uuid
     delivery_address:
-      $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/order.yaml#/address"
+      $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/Service/order.yaml#/address"
     delivery_comment:
       type: string
       example: ""

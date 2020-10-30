@@ -12,7 +12,8 @@ info:
 tags:
   - name: Service app
     description: Запросы необходимые для приложения менеджера
-
+  - name: Help
+    description: Вспомогательные запросы
 
 schemes:
   - "https"
@@ -23,6 +24,75 @@ produces:
   - "application/json"
 
 paths:
+  /service/login:
+    get:
+      tags:
+        - "Help"
+      summary: "Проверка на корректность пароля пользователя по его логину или телефону"
+      operationId: "login"
+      parameters:
+        - in: "query"
+          name: phone
+          type: string
+        - in: "query"
+          name: login
+          type: string
+        - in: "query"
+          name: password
+          type: string
+          required: true
+      responses:
+        200:
+          description: "Если данные совпали то возвращает staff, иначе null"
+          schema:
+            type: object
+            required:
+              - "result"
+            properties:
+              result:
+                $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/Service/person.yaml#/person"
+
+
+  /service/check_unique_data:
+    get:
+      tags:
+        - "Help"
+      summary: "Проверка уникальности пользовательской информации"
+      operationId: "check_unique_data"
+      description: "Проверяет есть ли рабочий с данной информацией"
+      parameters:
+        - in: "query"
+          name: phone
+          type: string
+          required: true
+        - in: "query"
+          name: login
+          type: string
+          required: true
+      responses:
+        200:
+          description: "Успешный запрос"
+          schema:
+            type: object
+            required:
+              - "result"
+            properties:
+              result:
+                type: object
+                required:
+                  - "ok"
+                  - "login_exist"
+                  - "phone_exist"
+                properties:
+                  ok:
+                    type: boolean
+                    description: "В случае если логин и телефон свободный - значение true, иначе - false"
+                    example: false
+                  login_exist:
+                    type: boolean
+                  phone_exist:
+                    type: boolean
+
   /service/orders:
     get:
       tags:
@@ -62,20 +132,18 @@ paths:
               result:
                 type: array
                 items:
-                  $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/order.yaml#/order"
+                  $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/Service/order.yaml#/order"
     post:
       tags:
         - "Service app"
-      summary: "Получение списка заказов внутренней кухни"
-      description: "Формат запроса на первой итерации подтвержден. Пока на сервере не реализовано. Обратите внимание что точка входа может поменяться в дальнейшем"
+      summary: "Добавить заказ"
       operationId: "post_order"
       parameters:
         - in: "body"
           name: "body"
-          description: "Pet object that needs to be added to the store"
           required: true
           schema:
-            $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/order.yaml#/post_order"
+            $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/Service/order.yaml#/post_order"
       responses:
         201:
           description: "Запрос выполен успешно"
@@ -85,20 +153,19 @@ paths:
               - "result"
             properties:
               result:
-                $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/order.yaml#/order"
+                $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/Service/order.yaml#/order"
     put:
       tags:
         - "Service app"
-      summary: "Получение списка заказов внутренней кухни"
-      description: "Формат запроса на первой итерации подтвержден. Пока на сервере не реализовано. Обратите внимание что точка входа может поменяться в дальнейшем"
+
+      summary: "Изменить заказ"
       operationId: "put_order"
       parameters:
         - in: "body"
           name: "body"
-          description: "Если в теле есть positions - то сможем поменять только в случае если все positions->status == created. "
           required: true
           schema:
-            $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/order.yaml#/post_order"
+            $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/Service/order.yaml#/put_order"
       responses:
         201:
           description: "Запрос выполен успешно"
@@ -108,29 +175,15 @@ paths:
               - "result"
             properties:
               result:
-                $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/order.yaml#/order"
-    delete:
-      tags:
-        - "Service app"
-      summary: "Получение списка заказов"
-      description: "Формат запроса на первой итерации подтвержден. Пока на сервере не реализовано. Обратите внимание что точка входа может поменяться в дальнейшем"
-      operationId: "delete_order"
-      parameters:
-        - in: query
-          name: id
-          type: string
-          format: uuid
-          required: true
-      responses:
-        200:
-          description: "Запрос выполен успешно"
+                $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/Service/order.yaml#/order"
+
 
   /service/order_dishes:
     get:
       tags:
         - "Service app"
-      summary: "Получение списка заказов (для повара)"
-      description: "По своему id получение блюда на упаковку или готовку"
+      summary: "Получение списка блюд (для повара)"
+      description: "По своему id получение блюда на готовку"
       operationId: "get_order_dish"
       parameters:
         - in: query
@@ -141,7 +194,7 @@ paths:
           required: true
       responses:
         200:
-          description: "Блюдо, над необходимо произвести работу"
+          description: "Запрос выполен успешно"
           schema:
             type: object
             required:
@@ -150,21 +203,20 @@ paths:
               result:
                 type: array
                 items:
-                  $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/order.yaml#/order_dish"
+                  $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/Service/order.yaml#/order_dish"
+
     put:
       tags:
         - "Service app"
-      summary: "Изменение статуса заказа (для повара и упаковщика)"
+      summary: "Изменение статуса блюда или изменения повара у блюда"
       description: "Изменение статуса заказа на in_cooking, waiting_for_packaging, ready в зависимости от текущего рабочего и поля incompany_order"
       operationId: "put_order_dish"
       parameters:
         - in: "body"
           name: "body"
-          description: "Pet object that needs to be added to the store"
           required: true
           schema:
             type: object
-            description: ""
             required:
               - "id"
             properties:
@@ -192,23 +244,28 @@ paths:
               - "result"
             properties:
               result:
-                $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/order.yaml#/order_dish"
+                $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/Service/order.yaml#/order_dish"
 
 
   /service/customers:
     get:
       tags:
         - "Service app"
-      summary: "Получение списка пользователей"
-      description: "Формат запроса на первой итерации подтвержден. Пока на сервере не реализовано. Обратите внимание что точка входа может поменяться в дальнейшем"
+      summary: "Получение информации о пользователе"
+      description: "В качестве параметров - информация по которой будет искаться пользователь"
       operationId: "customers"
       parameters:
         - in: query
           name: id
           type: string
           format: uuid
-          required: true
-          description: "ID пользователя для которого вернуть его заказы, если не указано - вернуть все заказы"
+        - in: query
+          name: phone
+          type: string
+          format: string
+        - in: query
+          name: login
+          type: string
       responses:
         200:
           description: "Запрос выполен успешно"
@@ -220,53 +277,71 @@ paths:
               result:
                 type: array
                 items:
-                  $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/customer.yaml#/customer"
-    put:
-      tags:
-        - "Service app"
-      summary: "Изменение данных потребителя"
-      description: "Изменять можно любое поле первого уровня, кроме ID. В случае если поле менять не надо - не добавлять его в тело запроса."
-      operationId: "put_customers"
-      parameters:
-        - in: "body"
-          name: "body"
-          description: "Менять можно только поля первого уровня"
-          required: true
-          schema:
-            $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/customer.yaml#/customer"
-      responses:
-        201:
-          description: "Запрос выполен успешно"
-          schema:
-            type: object
-            required:
-              - "result"
-            properties:
-              result:
-                $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/customer.yaml#/customer"
-    delete:
-      tags:
-        - "Service app"
-      summary: "Получение списка заказов"
-      description: "Формат запроса на первой итерации подтвержден. Пока на сервере не реализовано. Обратите внимание что точка входа может поменяться в дальнейшем"
-      operationId: "delete_customer"
-      parameters:
-        - in: query
-          name: id
-          type: string
-          format: uuid
-          required: true
-      responses:
-        200:
-          description: "Запрос выполен успешно"
+                  $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/Service/customer.yaml#/customer"
+      # put:
+      #   tags:
+      #   - "Service app"
+      #   summary: "Изменение данных потребителя"
+      #   description: "Изменять можно любое поле первого уровня, кроме ID. В случае если поле менять не надо - не добавлять его в тело запроса."
+      #   operationId: "put_customers"
+      #   deprecated: True
+      #   parameters:
+      #   - in: query
+      #     name: otp
+      #     type: string
+      #     required: true
+      #     description: "Изменяет информацию о пользователе, в случае изменениях ключевых полей - phone требуется корректный otp"
+      #   - in: "body"
+      #     name: "body"
+      #     description: "Менять можно только поля первого уровня"
+      #     required: true
+      #     schema:
+      #       $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/Service/customer.yaml#/customer"
+      #   responses:
+      #     201:
+      #       description: "Запрос выполен успешно"
+      #       schema:
+      #         type: object
+      #         required:
+      #         - "result"
+      #         properties:
+      #           result:
+      #             $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/Service/customer.yaml#/customer"
+      # delete:
+      #   tags:
+      #   - "Service app"
+      #   summary: "Удаление пользователя"
+      #   operationId: "delete_customer"
+      #   parameters:
+      #   - in: query
+      #     name: id
+      #     type: string
+      #     format: uuid
+      #     required: true
+      #   responses:
+      #     200:
+      #       description: "Запрос выполен успешно"
 
   /service/staff:
     get:
       tags:
         - "Service app"
-      summary: "Получение спика работников"
-      description: "Формат запроса на первой итерации подтвержден. Пока на сервере не реализовано. Обратите внимание что точка входа может поменяться в дальнейшем"
+      summary: "Получение спика работников, если не передано ничего - то вернется весь список"
       operationId: "staff_list"
+      parameters:
+        - in: "query"
+          name: id
+          type: string
+          format: uuid
+        - in: "query"
+          name: phone
+          type: string
+        - in: "query"
+          name: login
+          type: string
+        - in: "query"
+          name: password
+          type: string
       responses:
         200:
           description: "Запрос выполен успешно"
@@ -278,12 +353,11 @@ paths:
               result:
                 type: array
                 items:
-                  $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/person.yaml#/person"
+                  $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/Service/person.yaml#/person"
     post:
       tags:
         - "Service app"
       summary: "Добавление работника в список"
-      description: "Формат запроса на первой итерации подтвержден. Пока на сервере не реализовано. Обратите внимание что точка входа может поменяться в дальнейшем"
       operationId: "post_staff"
       parameters:
         - in: "body"
@@ -291,7 +365,7 @@ paths:
           description: "Информация о работнике"
           required: true
           schema:
-            $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/person.yaml#/service_app_post_person"
+            $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/Service/person.yaml#/service_app_post_person"
       responses:
         201:
           description: "Запрос выполен успешно"
@@ -301,12 +375,12 @@ paths:
               - "result"
             properties:
               result:
-                $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/person.yaml#/person"
+                $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/Service/person.yaml#/person"
     put:
       tags:
         - "Service app"
       summary: "Изменение данных работника"
-      description: "Изменять можно любое поле первого уровня, кроме ID. В случае если поле менять не надо - не добавлять его в тело запроса."
+      description: "Изменяет информацию о пользователе"
       operationId: "put_staff"
       parameters:
         - in: "body"
@@ -314,7 +388,7 @@ paths:
           description: "Менять можно только поля первого уровня. Т.е. permissions поменять полность можно, а отдельно permissions->orders->read нельзя."
           required: true
           schema:
-            $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/person.yaml#/service_app_post_person"
+            $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/Service/person.yaml#/service_app_post_person"
       responses:
         201:
           description: "Запрос выполен успешно"
@@ -324,7 +398,7 @@ paths:
               - "result"
             properties:
               result:
-                $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/person.yaml#/person"
+                $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/Service/person.yaml#/person"
     delete:
       tags:
         - "Service app"
@@ -337,9 +411,35 @@ paths:
           type: string
           format: uuid
           required: true
+        - in: query
+          name: role
+          type: string
+          enum:
+            - "manager"
+            - "administrator"
+          required: true
       responses:
         200:
           description: "Запрос выполен успешно"
+        500:
+          description: "Не был выполнен"
+          schema:
+            type: object
+            required:
+              - "result"
+            properties:
+              result:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: 'Employee has work in progress'
+                  data:
+                    description: "ID блюд или заказов которые активны у сотрудника"
+                    type: array
+                    items:
+                      type: string
+                      format: uuid
 
   /service/dishes:
     get:
@@ -355,8 +455,7 @@ paths:
           items:
             type: string
             format: uuid
-          required: true
-          description: "ID кухонь или ничего, если получить все"
+          description: "id кухнь для которых получить блюда"
       responses:
         200:
           description: "Возвращает какие блюда есть на данной кухне или кухнях"
@@ -368,7 +467,7 @@ paths:
               result:
                 type: array
                 items:
-                  $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/dish.yaml#/dish"
+                  $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/Service/dish.yaml#/dish"
     post:
       tags:
         - "Service app"
@@ -381,7 +480,7 @@ paths:
           description: "Pet object that needs to be added to the store"
           required: true
           schema:
-            $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/dish.yaml#/dish"
+            $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/Service/dish.yaml#/dish"
       responses:
         201:
           description: "Запрос выполен успешно"
@@ -391,7 +490,7 @@ paths:
               - "result"
             properties:
               result:
-                $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/dish.yaml#/dish"
+                $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/Service/dish.yaml#/dish"
     put:
       tags:
         - "Service app"
@@ -404,7 +503,7 @@ paths:
           description: "Менять можно только поля первого уровня. Т.е. name поменять полность можно, а отдельно description->ru нельзя."
           required: true
           schema:
-            $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/dish.yaml#/dish"
+            $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/Service/dish.yaml#/dish"
       responses:
         201:
           description: "Запрос выполен успешно"
@@ -414,7 +513,7 @@ paths:
               - "result"
             properties:
               result:
-                $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/dish.yaml#/dish"
+                $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/Service/dish.yaml#/dish"
     delete:
       tags:
         - "Service app"
@@ -458,7 +557,7 @@ paths:
               result:
                 type: array
                 items:
-                  $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/item.yaml#/item"
+                  $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/Service/item.yaml#/item"
     post:
       tags:
         - "Service app"
@@ -471,7 +570,7 @@ paths:
           description: "Pet object that needs to be added to the store"
           required: true
           schema:
-            $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/item.yaml#/item"
+            $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/Service/item.yaml#/item"
       responses:
         201:
           description: "Запрос выполен успешно"
@@ -481,7 +580,7 @@ paths:
               - "result"
             properties:
               result:
-                $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/item.yaml#/item"
+                $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/Service/item.yaml#/item"
     put:
       tags:
         - "Service app"
@@ -494,7 +593,7 @@ paths:
           description: "Менять можно только поля первого уровня. Т.е. name поменять полность можно, а отдельно name->ru нельзя."
           required: true
           schema:
-            $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/item.yaml#/item"
+            $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/Service/item.yaml#/item"
       responses:
         201:
           description: "Запрос выполен успешно"
@@ -504,7 +603,7 @@ paths:
               - "result"
             properties:
               result:
-                $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/item.yaml#/item"
+                $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/Service/item.yaml#/item"
     delete:
       tags:
         - "Service app"
@@ -520,6 +619,25 @@ paths:
       responses:
         200:
           description: "Запрос выполен успешно"
+        500:
+          description: "Не был выполнен"
+          schema:
+            type: object
+            required:
+              - "result"
+            properties:
+              result:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: 'Ingredient is used in the dishes'
+                  data:
+                    type: array
+                    items:
+                      type: string
+                      format: uuid
+
 
   /service/kitchens:
     get:
@@ -538,7 +656,7 @@ paths:
               result:
                 type: array
                 items:
-                  $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/kitchen.yaml#/kitchen"
+                  $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/Service/kitchen.yaml#/kitchen"
     post:
       tags:
         - "Service app"
@@ -551,7 +669,7 @@ paths:
           description: "Pet object that needs to be added to the store"
           required: true
           schema:
-            $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/kitchen.yaml#/post_kitchen"
+            $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/Service/kitchen.yaml#/post_kitchen"
       responses:
         201:
           description: "Запрос выполен успешно"
@@ -561,7 +679,7 @@ paths:
               - "result"
             properties:
               result:
-                $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/kitchen.yaml#/kitchen"
+                $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/Service/kitchen.yaml#/kitchen"
     put:
       tags:
         - "Service app"
@@ -574,7 +692,7 @@ paths:
           description: "Передается ID объекта у которого меняется поле address"
           required: true
           schema:
-            $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/kitchen.yaml#/post_kitchen"
+            $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/Service/kitchen.yaml#/post_kitchen"
       responses:
         201:
           description: "Запрос выполен успешно"
@@ -584,7 +702,7 @@ paths:
               - "result"
             properties:
               result:
-                $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/kitchen.yaml#/kitchen"
+                $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/Service/kitchen.yaml#/kitchen"
     delete:
       tags:
         - "Service app"
@@ -600,6 +718,24 @@ paths:
       responses:
         200:
           description: "Запрос выполен успешно"
+        500:
+          description: "Не был выполнен"
+          schema:
+            type: object
+            required:
+              - "result"
+            properties:
+              result:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    example: 'Staff work in this kitchen'
+                  data:
+                    type: array
+                    items:
+                      type: string
+                      format: uuid
 
 
   /service/sections_content:
@@ -608,6 +744,7 @@ paths:
         - "Service app"
       summary: "Получение списка секций и их названий"
       operationId: "sections_content"
+
       responses:
         200:
           description: "Запрос выполен успешно"
@@ -619,7 +756,7 @@ paths:
               result:
                 type: array
                 items:
-                  $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/sections_content.yaml#/sections_content"
+                  $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/Service/sections_content.yaml#/sections_content"
     post:
       tags:
         - "Service app"
@@ -632,7 +769,7 @@ paths:
           description: "Pet object that needs to be added to the store"
           required: true
           schema:
-            $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/sections_content.yam#/sections_contentl"
+            $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/Service/sections_content.yaml#/sections_content"
       responses:
         200:
           description: "Запрос выполен успешно"
@@ -648,7 +785,7 @@ paths:
           description: "Менять можно только поля первого уровня. Т.е. name поменять полность можно, а отдельно name->ru нельзя."
           required: true
           schema:
-            $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/sections_content.yaml#/sections_content"
+            $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/Service/sections_content.yaml#/sections_content"
       responses:
         201:
           description: "Запрос выполен успешно"
@@ -658,7 +795,7 @@ paths:
               - "result"
             properties:
               result:
-                $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/sections_content.yaml#/sections_content"
+                $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/Service/sections_content.yaml#/sections_content"
     delete:
       tags:
         - "Service app"
@@ -694,7 +831,7 @@ paths:
               result:
                 type: array
                 items:
-                  $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/cuisine.yaml#/cuisine"
+                  $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/Service/cuisine.yaml#/cuisine"
     post:
       tags:
         - "Service app"
@@ -707,7 +844,7 @@ paths:
           description: "Pet object that needs to be added to the store"
           required: true
           schema:
-            $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/cuisine.yaml#/cuisine"
+            $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/Service/cuisine.yaml#/cuisine"
       responses:
         201:
           description: "Запрос выполен успешно"
@@ -717,7 +854,7 @@ paths:
               - "result"
             properties:
               result:
-                $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/cuisine.yaml#/cuisine"
+                $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/Service/cuisine.yaml#/cuisine"
     put:
       tags:
         - "Service app"
@@ -730,7 +867,7 @@ paths:
           description: "Менять можно только поля первого уровня. Т.е. name поменять полность можно, а отдельно name->ru нельзя."
           required: true
           schema:
-            $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/cuisine.yaml#/cuisine"
+            $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/Service/cuisine.yaml#/cuisine"
       responses:
         201:
           description: "Запрос выполен успешно"
@@ -740,7 +877,7 @@ paths:
               - "result"
             properties:
               result:
-                $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/cuisine.yaml#/cuisine"
+                $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/Service/cuisine.yaml#/cuisine"
     delete:
       tags:
         - "Service app"
@@ -755,6 +892,7 @@ paths:
       responses:
         200:
           description: "Запрос выполен успешно"
+
 
 
 basePath: /alalmoskvin/cook4you.service/1.0.0
