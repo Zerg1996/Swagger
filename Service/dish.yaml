@@ -13,6 +13,8 @@ dish:
     - "ingredients"
     - "price"
     - "cost_price"
+    - "staff_cost"
+    - "margin"
     - "price_currency"
     - "changeable_ingredients"
     - "cook_specialization"
@@ -94,6 +96,12 @@ dish:
       type: number
       format: float
       description: "Себестоимость товара, считается на сервере."
+    staff_cost:
+      type: number
+      format: float
+    margin:
+      type: number
+      format: float
     changeable_ingredients:
       type: object
       additionalProperties:
