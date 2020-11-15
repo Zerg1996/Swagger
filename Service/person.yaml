@@ -34,7 +34,12 @@ person:
       example: "Москва Мой дом 3"
     staff_role:
       type: string
-      enum: ["manager", "courier", "packer", "{cook: Enum [A, B, C, D, E, F]}", "administrator"]
+      enum:
+      - "manager"
+      - "courier"
+      - "packer"
+      - "cook"
+      - "administrator"
     specialization:
       type: array
       items:
@@ -111,7 +116,24 @@ service_app_post_person:
       example: "Москва Мой дом 3"
     staff_role:
       type: string
-      enum: ["manager", "courier", "packer", "{cook: Enum [A, B, C, D, E, F]}", "administrator"]
+      enum:
+        - "manager"
+        - "courier"
+        - "packer"
+        - "cook"
+        - "administrator"
+    specialization:
+      type: array
+      items:
+        type: string
+        enum:
+          - "A"
+          - "B"
+          - "C"
+          - "D"
+          - "E"
+          - "F"
+      example: [ "A", "B" ]
     login:
       type: string
       example: "Alex1946"
