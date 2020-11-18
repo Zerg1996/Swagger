@@ -97,7 +97,7 @@ post_order:
     repetitive:
       type: object
       additionalProperties:
-        type: string
+        type: boolean
       example: {'mon': 1, 'tue': 1, 'wed': 0, 'thu': 0, 'fri': 0, 'sat': 1, 'sun': 1}
 
 post_order_dish:
