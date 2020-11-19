@@ -4,7 +4,6 @@ dishes_list_structure:
     - "id"
     - "parent_id"
     - "name"
-    - "level_group"
   properties:
     id:
       type: string
@@ -17,6 +16,3 @@ dishes_list_structure:
       additionalProperties:
         type: string
       example: {'ru': 'Предложение дня', 'en': 'Main course'}
-    level_group:
-      type: integer
-      description: "Обозначает уровень вложенности, от 1 до 5"
