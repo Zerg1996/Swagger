@@ -86,7 +86,7 @@ dish:
           - "gross"
           - "net"
           - "output"
-        parameters:
+        properties:
           gross:
             type: number
             format: float
