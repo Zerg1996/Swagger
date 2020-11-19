@@ -81,12 +81,23 @@ dish:
     ingredients:
       type: object
       additionalProperties:
-        type: number
-        format: float
+        type: object
+        required:
+          - "gross"
+          - "net"
+          - "output"
+        parameters:
+          gross:
+            type: number
+            format: float
+          net:
+            type: number
+            format: float
+          output:
+            type: number
+            format: float
       example:
-        "3fa85f64-5717-4562-b3fc-2c963f66afa6": 0.2
-        "3fa85f64-5717-4562-b3fc-2c963f66afa7": 0.5
-      description: "ingredient_id(uuid): quantity(float)"
+        "3fa85f64-5717-4562-b3fc-2c963f66afa6": { 'gross': 1.0, 'net': 1.0, 'output': 1.0 }
     price_currency:
       type: string
       example: "USD"

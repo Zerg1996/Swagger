@@ -97,7 +97,6 @@ dish:
             format: float
       example:
         "3fa85f64-5717-4562-b3fc-2c963f66afa6": {'gross': 1.0, 'net': 1.0, 'output': 1.0}
-      description: "ingredient_id(uuid): quantity(float)"
     price_currency:
       type: string
       example: "USD"
