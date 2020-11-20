@@ -8,6 +8,7 @@ item:
     - "calorie_content"
     - "cost_price"
     - "price_currency"
+    - "tax_rate_purchase"
     - "availability"
   properties:
     id:
@@ -38,6 +39,9 @@ item:
       type: string
       example: "USD"
     cost_price:
+      type: number
+      format: float
+    tax_rate_purchase:
       type: number
       format: float
     availability:
