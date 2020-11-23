@@ -44,8 +44,7 @@ operation:
       type: string
       format: date-time
     items:
-      type: string
-      format: uuid
+      type: object
       additionalProperties:
         type: object
         required:
