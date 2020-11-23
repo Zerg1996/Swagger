@@ -11,6 +11,12 @@ dishes_list_structure:
     parent_id:
       type: string
       format: uuid
+    elements:
+      type: array
+      items:
+        type: string
+        format: uuid
+      description: "Перечисление блюд которые находятся на этом уровне"
     name:
       type: object
       additionalProperties:
