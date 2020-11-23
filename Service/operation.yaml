@@ -1,0 +1,68 @@
+operation:
+  type: object
+  required:
+    - "id"
+    - "recipient"
+    - "supplier"
+    - "date"
+    - "items"
+  properties:
+    id:
+      type: string
+      format: uuid
+    recipient:
+      type: object
+      required:
+        - "name"
+        - "employee"
+      properties:
+        name:
+          type: string
+          additionalProperties:
+            type: string
+          example: {"ru": "Быстрая доставка ингридиентов", "en": "Fast and furious" }
+        employee:
+          type: string
+          format: uuid
+          description: "id отдающей стороны"
+    supplier:
+      type: object
+      required:
+        - "name"
+        - "employee"
+      properties:
+        name:
+          type: string
+          additionalProperties:
+            type: string
+          example: { "ru": "Быстрый прием ингридиентов", "en": "Get and gone" }
+        employee:
+          type: string
+          format: uuid
+          description: "id принимающей стороны"
+    date:
+      type: string
+      format: date-time
+    items:
+      type: string
+      format: uuid
+      additionalProperties:
+        type: object
+        required:
+          - "quantity"
+          - "unit"
+        properties:
+          quantity:
+            type: number
+            format: float
+            example: 2.12
+          unit:
+            type: string
+            enum:
+              - "liter"
+              - "kg"
+              - "pcs"
+              - "gal"
+              - "lb"
+      example: {'02efc394-8329-420a-9aa9-ef4b3f01a7f1': {"quantity": 2.00, "unit": "kg"},
+                '02efc394-8329-420a-9aa9-ef4b3f01a7f2': {"quantity": 0.01, "unit": "gal"}}
