@@ -17,7 +17,7 @@ operation:
         - "employee"
       properties:
         name:
-          type: object
+          type: string
           additionalProperties:
             type: string
           example: {"ru": "Быстрая доставка ингридиентов", "en": "Fast and furious" }
