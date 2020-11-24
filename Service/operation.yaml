@@ -41,8 +41,17 @@ operation:
           format: uuid
           description: "id принимающей стороны"
     date:
-      type: string
-      format: date-time
+      type: object
+      required:
+        - begin
+        - end
+      properties:
+          begin:
+            type: string
+            format: date-time
+          end:
+            type: string
+            format: date-time
     items:
       type: object
       additionalProperties:
