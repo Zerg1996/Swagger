@@ -12,4 +12,4 @@ contractor:
       example: "Москва, Лучший адресс, 12"
     name:
       type: string
-      example: "OOO FAST AND GOOD FOOD"
+      example: "FAST AND GOOD FOOD"
