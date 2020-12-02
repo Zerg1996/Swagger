@@ -1,0 +1,15 @@
+contractor:
+  type: object
+  required:
+    - "id"
+    - "name"
+  properties:
+    id:
+      type: string
+      format: uuid
+    address:
+      type: string
+      example: "Москва, Лучший адресс, 12"
+    name:
+      type: string
+      example: "OOO FAST AND GOOD FOOD"
