@@ -5,72 +5,50 @@ operation:
     - "recipient"
     - "supplier"
     - "date"
+    - "type"
     - "items"
   properties:
     id:
       type: string
       format: uuid
     recipient:
-      type: object
-      required:
-        - "name"
-        - "employee"
-      properties:
-        name:
-          type: object
-          additionalProperties:
-            type: string
-          example: {"ru": "Быстрая доставка ингридиентов", "en": "Fast and furious" }
-        employee:
-          type: string
-          format: uuid
-          description: "id отдающей стороны"
+      type: string
+      format: uuid
     supplier:
-      type: object
-      required:
-        - "name"
-        - "employee"
-      properties:
-        name:
-          type: object
-          additionalProperties:
-            type: string
-          example: { "ru": "Быстрый прием ингридиентов", "en": "Get and gone" }
-        employee:
-          type: string
-          format: uuid
-          description: "id принимающей стороны"
+      type: string
+      format: uuid
+    employee:
+      type: string
+      format: uuid
+      description: "Сотрудник который создал операцию"
+    type:
+      type: string
+      enum:
+        - purchase
+        - sale
+        - transfer
+        - return
+        - change
     date:
-      type: object
-      required:
-        - begin
-        - end
-      properties:
-          begin:
-            type: string
-            format: date-time
-          end:
-            type: string
-            format: date-time
+      type: string
+      format: date-time
     items:
       type: object
       additionalProperties:
-        type: object
-        required:
-          - "quantity"
-          - "unit"
-        properties:
-          quantity:
-            type: number
-            format: float
-            example: 2.12
-          unit:
-            type: string
-            enum:
-              - "liter"
-              - "kg"
-              - "pcs"
-              - "gal"
-              - "lb"
-      example: {'02efc394-8329-420a-9aa9-ef4b3f01a7f1': {"quantity": 2.00, "unit": "kg"},
-                '02efc394-8329-420a-9aa9-ef4b3f01a7f2': {"quantity": 0.01, "unit": "gal"}}
+        type: array
+        items:
+          type: object
+          required:
+            - "kitchen"
+            - "quantity"
+          properties:
+            kitchen:
+              type: string
+              format: uuid
+            quantity:
+              type: number
+              format: float
+              example: 2.12
+      description: "Ключами являются id ингредиентов которые будут меняться"
+      example: { '02efc394-8329-420a-9aa9-ef4b3f01a7f1': [{"quantity": 2.00, "kitchen": '02efc394-8329-420a-9aa9-ef4b3f01a7f8'}],
+                 '02efc394-8329-420a-9aa9-ef4b3f01a7f2': [{"quantity": 0.01, "kitchen": '02efc394-8329-420a-9aa9-ef4b3f01a7f9'}]}
