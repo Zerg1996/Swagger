@@ -12,11 +12,29 @@ operation:
       type: string
       format: uuid
     recipient:
-      type: string
-      format: uuid
+      type: object
+      required:
+        - contractor
+        - person
+      properties:
+        contractor:
+          type: string
+          format: uuid
+        person:
+          type: string
+          format: uuid
     supplier:
-      type: string
-      format: uuid
+      type: object
+      required:
+        - contractor
+        - person
+      properties:
+        contractor:
+          type: string
+          format: uuid
+        person:
+          type: string
+          format: uuid
     employee:
       type: string
       format: uuid
