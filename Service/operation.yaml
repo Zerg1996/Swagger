@@ -35,10 +35,6 @@ operation:
         person:
           type: string
           format: uuid
-    employee:
-      type: string
-      format: uuid
-      description: "Сотрудник который создал операцию"
     type:
       type: string
       enum:
