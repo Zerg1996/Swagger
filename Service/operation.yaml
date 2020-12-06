@@ -56,4 +56,4 @@ operation:
         type: number
         format: float
       description: "Ключами являются id ингредиентов которые будут меняться"
-      example: { '02efc394-8329-420a-9aa9-ef4b3f01a7f1': : 2.00, '02efc394-8329-420a-9aa9-ef4b3f01a7f2': 0.01}
+      example: { '02efc394-8329-420a-9aa9-ef4b3f01a7f1': 2.00, '02efc394-8329-420a-9aa9-ef4b3f01a7f2': 0.01}
