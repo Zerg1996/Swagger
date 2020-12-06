@@ -2,6 +2,7 @@ operation:
   type: object
   required:
     - "id"
+    - "document"
     - "recipient"
     - "supplier"
     - "date"
@@ -11,6 +12,9 @@ operation:
     id:
       type: string
       format: uuid
+    document:
+      type: number
+      format: integer
     recipient:
       type: object
       required:
