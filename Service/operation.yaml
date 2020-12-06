@@ -13,8 +13,8 @@ operation:
       type: string
       format: uuid
     document:
-      type: number
-      format: integer
+      type: string
+      example: "example12334"
     recipient:
       type: object
       required:
