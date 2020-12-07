@@ -167,8 +167,8 @@ post_order_dish:
       format: uuid
     quantity:
       type: integer
-      format: int32
-      example: 42
+      enum:
+        - 1
     details:
       type: string
       description: "Пока не знаем что тут будет - поэтому можно отправлять пока пустую строчку"
@@ -237,8 +237,8 @@ order_dish:
       format: uuid
     quantity:
       type: integer
-      format: int32
-      example: 42
+      enum:
+        - 1
     details:
       type: string
       description: "Пока не знаем что тут будет - поэтому можно отправлять пока пустую строчку"
