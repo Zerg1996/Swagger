@@ -104,12 +104,16 @@ post_order_dish:
   type: object
   required:
     - "id"
+    - "group_id"
     - "dish"
     - "quantity"
     - "details"
     - "cook_specialization"
   properties:
     id:
+      type: string
+      format: uuid
+    group_id:
       type: string
       format: uuid
     dish:
@@ -142,6 +146,7 @@ order_dish:
   type: object
   required:
     - "id"
+    - "group_id"
     - "order"
     - "kitchen"
     - "dish"
@@ -153,6 +158,9 @@ order_dish:
     - "date_and_time"
   properties:
     id:
+      type: string
+      format: uuid
+    group_id:
       type: string
       format: uuid
     order:

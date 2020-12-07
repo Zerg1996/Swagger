@@ -140,6 +140,7 @@ post_order_dish:
   type: object
   required:
     - "id"
+    - "group_id"
     - "order"
     - "kitchen"
     - "dish"
@@ -150,6 +151,9 @@ post_order_dish:
     - "incompany_order"
   properties:
     id:
+      type: string
+      format: uuid
+    group_id:
       type: string
       format: uuid
     order:
@@ -199,6 +203,7 @@ order_dish:
   type: object
   required:
     - "id"
+    - "group_id"
     - "order"
     - "kitchen"
     - "dish"
@@ -211,6 +216,9 @@ order_dish:
     - "incompany_order"
   properties:
     id:
+      type: string
+      format: uuid
+    group_id:
       type: string
       format: uuid
     order:
