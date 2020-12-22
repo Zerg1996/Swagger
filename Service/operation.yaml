@@ -60,25 +60,25 @@ operation:
 item_operation:
   allOf:
     - type: object
-        required:
-          - type
-        properties:
-          type:
-            type: string
-            example: "item"
+      required:
+        - operation_type
+      properties:
+        type:
+          type: string
+          example: "item"
     - $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/Service/operation.yaml#/operation"
 
 product_operation:
   allOf:
     - type: object
-        required:
-          - type
-          - target_delivery_date_and_time
-        properties:
-          type:
-            type: string
-            example: "product"
-          target_delivery_date_and_time:
-            type: "string"
-            format: "date-time"
+      required:
+        - operation_type
+        - target_delivery_date_and_time
+      properties:
+        type:
+          type: string
+          example: "product"
+        target_delivery_date_and_time:
+          type: "string"
+          format: "date-time"
     - $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/Service/operation.yaml#/operation"
