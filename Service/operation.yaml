@@ -39,14 +39,6 @@ operation:
         person:
           type: string
           format: uuid
-    type:
-      type: string
-      enum:
-        - purchase
-        - sale
-        - transfer
-        - return
-        - change
     date:
       type: string
       format: date-time
@@ -61,24 +53,58 @@ item_operation:
   allOf:
     - type: object
       required:
-        - operation_type
+        - type
       properties:
         type:
           type: string
-          example: "item"
+          enum:
+            - purchase
+            - sale
+            - transfer
+            - return
+            - change
     - $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/Service/operation.yaml#/operation"
+
 
 product_operation:
   allOf:
     - type: object
       required:
-        - operation_type
         - target_delivery_date_and_time
       properties:
-        type:
-          type: string
-          example: "product"
         target_delivery_date_and_time:
           type: "string"
           format: "date-time"
     - $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/Service/operation.yaml#/operation"
+
+item_operation_example:
+  value:
+    id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+    document: "example12334",
+    type: "sale"
+    recipient:
+      contractor: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+      person: "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+    supplier:
+      contractor: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+      person: "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+    date: "2020-12-22T12:59:44.343Z",
+    items:
+      02efc394-8329-420a-9aa9-ef4b3f01a7f1: 2,
+      02efc394-8329-420a-9aa9-ef4b3f01a7f2: 0.01
+
+product_operation_example:
+  value:
+    id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+    document: "example12334",
+    target_delivery_date_and_time: "Москва, Новостройская 22"
+    recipient:
+      contractor: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+      person: "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+    supplier:
+      contractor: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+      person: "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+    date: "2020-12-22T12:59:44.343Z",
+    items:
+      02efc394-8329-420a-9aa9-ef4b3f01a7f1: 2,
+      02efc394-8329-420a-9aa9-ef4b3f01a7f2: 0.01
