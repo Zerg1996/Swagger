@@ -2,7 +2,7 @@ items_list_structure:
   type: object
   required:
     - "id"
-    - "parent_id"
+    - "elements"
     - "name"
   properties:
     id:

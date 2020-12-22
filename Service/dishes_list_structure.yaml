@@ -2,8 +2,8 @@ dishes_list_structure:
   type: object
   required:
     - "id"
-    - "parent_id"
     - "name"
+    - "elements"
   properties:
     id:
       type: string
