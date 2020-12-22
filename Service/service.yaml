@@ -12,8 +12,14 @@ info:
 tags:
   - name: Service app
     description: Запросы необходимые для приложения менеджера
-  - name: Help
-    description: Вспомогательные запросы
+  - name: Users
+    description: Запросы связанные с пользователями
+  - name: Structure
+    description: Запросы связанные со структурой отображения
+  - name: Operations
+    description: Групповые операции
+  # - name: Help
+  #   description: Вспомогательные запросы
 
 schemes:
   - "https"
@@ -27,8 +33,8 @@ paths:
   /service/login:
     get:
       tags:
-        - "Help"
-      summary: "Проверка на корректность пароля пользователя по его логину или телефону"
+        - Users
+      summary: "Получение пользователя по его данным"
       operationId: "login"
       parameters:
         - in: "query"
@@ -43,34 +49,6 @@ paths:
           required: true
       responses:
         200:
-          description: "Если данные совпали то возвращает staff, иначе null"
-          schema:
-            type: object
-            required:
-              - "result"
-            properties:
-              result:
-                $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/Service/person.yaml#/person"
-
-
-  /service/check_unique_data:
-    get:
-      tags:
-        - "Help"
-      summary: "Проверка уникальности пользовательской информации"
-      operationId: "check_unique_data"
-      description: "Проверяет есть ли рабочий с данной информацией"
-      parameters:
-        - in: "query"
-          name: phone
-          type: string
-          required: true
-        - in: "query"
-          name: login
-          type: string
-          required: true
-      responses:
-        200:
           description: "Успешный запрос"
           schema:
             type: object
@@ -78,20 +56,7 @@ paths:
               - "result"
             properties:
               result:
-                type: object
-                required:
-                  - "ok"
-                  - "login_exist"
-                  - "phone_exist"
-                properties:
-                  ok:
-                    type: boolean
-                    description: "В случае если логин и телефон свободный - значение true, иначе - false"
-                    example: false
-                  login_exist:
-                    type: boolean
-                  phone_exist:
-                    type: boolean
+                $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/Service/person.yaml#/person"
 
   /service/orders:
     get:
@@ -101,6 +66,7 @@ paths:
       description: "По переданному полю или полям ищет все заказы у которых данное поле совпадает с искомым"
       operationId: "get_order"
       parameters:
+        - $ref: "#/parameters/token"
         - in: "query"
           name: id
           type: string
@@ -139,6 +105,7 @@ paths:
       summary: "Добавить заказ"
       operationId: "post_order"
       parameters:
+        - $ref: "#/parameters/token"
         - in: "body"
           name: "body"
           required: true
@@ -157,10 +124,10 @@ paths:
     put:
       tags:
         - "Service app"
-
       summary: "Изменить заказ"
       operationId: "put_order"
       parameters:
+        - $ref: "#/parameters/token"
         - in: "body"
           name: "body"
           required: true
@@ -186,6 +153,7 @@ paths:
       description: "По своему id получение блюда на готовку"
       operationId: "get_order_dish"
       parameters:
+        - $ref: "#/parameters/token"
         - in: query
           description: "ID повара, который будет выполнять свою работу"
           name: cook
@@ -212,6 +180,7 @@ paths:
       description: "Изменение статуса заказа на in_cooking, waiting_for_packaging, ready в зависимости от текущего рабочего и поля incompany_order"
       operationId: "put_order_dish"
       parameters:
+        - $ref: "#/parameters/token"
         - in: "body"
           name: "body"
           required: true
@@ -250,11 +219,12 @@ paths:
   /service/customers:
     get:
       tags:
-        - "Service app"
+        - Users
       summary: "Получение информации о пользователе"
       description: "В качестве параметров - информация по которой будет искаться пользователь"
       operationId: "customers"
       parameters:
+        - $ref: "#/parameters/token"
         - in: query
           name: id
           type: string
@@ -278,57 +248,16 @@ paths:
                 type: array
                 items:
                   $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/Service/customer.yaml#/customer"
-      # put:
-      #   tags:
-      #   - "Service app"
-      #   summary: "Изменение данных потребителя"
-      #   description: "Изменять можно любое поле первого уровня, кроме ID. В случае если поле менять не надо - не добавлять его в тело запроса."
-      #   operationId: "put_customers"
-      #   deprecated: True
-      #   parameters:
-      #   - in: query
-      #     name: otp
-      #     type: string
-      #     required: true
-      #     description: "Изменяет информацию о пользователе, в случае изменениях ключевых полей - phone требуется корректный otp"
-      #   - in: "body"
-      #     name: "body"
-      #     description: "Менять можно только поля первого уровня"
-      #     required: true
-      #     schema:
-      #       $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/Service/customer.yaml#/customer"
-      #   responses:
-      #     201:
-      #       description: "Запрос выполен успешно"
-      #       schema:
-      #         type: object
-      #         required:
-      #         - "result"
-      #         properties:
-      #           result:
-      #             $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/Service/customer.yaml#/customer"
-      # delete:
-      #   tags:
-      #   - "Service app"
-      #   summary: "Удаление пользователя"
-      #   operationId: "delete_customer"
-      #   parameters:
-      #   - in: query
-      #     name: id
-      #     type: string
-      #     format: uuid
-      #     required: true
-      #   responses:
-      #     200:
-      #       description: "Запрос выполен успешно"
+
 
   /service/staff:
     get:
       tags:
-        - "Service app"
+        - Users
       summary: "Получение спика работников, если не передано ничего - то вернется весь список"
       operationId: "staff_list"
       parameters:
+        - $ref: "#/parameters/token"
         - in: "query"
           name: id
           type: string
@@ -356,10 +285,11 @@ paths:
                   $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/Service/person.yaml#/person"
     post:
       tags:
-        - "Service app"
+        - Users
       summary: "Добавление работника в список"
       operationId: "post_staff"
       parameters:
+        - $ref: "#/parameters/token"
         - in: "body"
           name: "body"
           description: "Информация о работнике"
@@ -376,13 +306,35 @@ paths:
             properties:
               result:
                 $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/Service/person.yaml#/person"
+        500:
+          description: "Не был выполнен"
+          schema:
+            type: object
+            required:
+              - "result"
+            properties:
+              result:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    enum:
+                      - "Employee has the same phone"
+                      - "Employee has the same login"
+                  data:
+                    description: "ID сотредника у которого такой же логин или телефон"
+                    type: array
+                    items:
+                      type: string
+                      format: uuid
     put:
       tags:
-        - "Service app"
+        - Users
       summary: "Изменение данных работника"
       description: "Изменяет информацию о пользователе"
       operationId: "put_staff"
       parameters:
+        - $ref: "#/parameters/token"
         - in: "body"
           name: "body"
           description: "Менять можно только поля первого уровня. Т.е. permissions поменять полность можно, а отдельно permissions->orders->read нельзя."
@@ -399,24 +351,39 @@ paths:
             properties:
               result:
                 $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/Service/person.yaml#/person"
+        500:
+          description: "Не был выполнен"
+          schema:
+            type: object
+            required:
+              - "result"
+            properties:
+              result:
+                type: object
+                properties:
+                  msg:
+                    type: string
+                    enum:
+                      - "Employee has the same phone"
+                      - "Employee has the same login"
+                  data:
+                    description: "ID сотредника у которого такой же логин или телефон"
+                    type: array
+                    items:
+                      type: string
+                      format: uuid
     delete:
       tags:
-        - "Service app"
+        - Users
       summary: "Удаление работника"
       description: "Формат запроса на первой итерации подтвержден. Пока на сервере не реализовано. Обратите внимание что точка входа может поменяться в дальнейшем"
       operationId: "delete_staff"
       parameters:
+        - $ref: "#/parameters/token"
         - in: query
           name: id
           type: string
           format: uuid
-          required: true
-        - in: query
-          name: role
-          type: string
-          enum:
-            - "manager"
-            - "administrator"
           required: true
       responses:
         200:
@@ -449,6 +416,7 @@ paths:
       description: "Возвращает блюда которые доступны на данной кухне и с которой их можно заказать count > 0"
       operationId: "dishes"
       parameters:
+        - $ref: "#/parameters/token"
         - in: query
           name: id
           type: array
@@ -475,6 +443,7 @@ paths:
       description: "Формат запроса на первой итерации подтвержден. Пока на сервере не реализовано. Обратите внимание что точка входа может поменяться в дальнейшем"
       operationId: "post_dishe"
       parameters:
+        - $ref: "#/parameters/token"
         - in: "body"
           name: "body"
           description: "Pet object that needs to be added to the store"
@@ -498,6 +467,7 @@ paths:
       description: "Изменять можно любое поле первого уровня, кроме ID. В случае если поле менять не надо - не добавлять его в тело запроса."
       operationId: "put_dishe"
       parameters:
+        - $ref: "#/parameters/token"
         - in: "body"
           name: "body"
           description: "Менять можно только поля первого уровня. Т.е. name поменять полность можно, а отдельно description->ru нельзя."
@@ -521,6 +491,7 @@ paths:
       description: "Формат запроса на первой итерации подтвержден. Пока на сервере не реализовано. Обратите внимание что точка входа может поменяться в дальнейшем"
       operationId: "delete_dishe"
       parameters:
+        - $ref: "#/parameters/token"
         - in: query
           name: id
           type: string
@@ -538,6 +509,7 @@ paths:
       description: "Формат запроса на первой итерации подтвержден. Пока на сервере не реализовано. Обратите внимание что точка входа может поменяться в дальнейшем"
       operationId: "items"
       parameters:
+        - $ref: "#/parameters/token"
         - in: query
           name: id
           type: array
@@ -565,6 +537,7 @@ paths:
       description: "Формат запроса на первой итерации подтвержден. Пока на сервере не реализовано. Обратите внимание что точка входа может поменяться в дальнейшем"
       operationId: "post_item"
       parameters:
+        - $ref: "#/parameters/token"
         - in: "body"
           name: "body"
           description: "Pet object that needs to be added to the store"
@@ -588,6 +561,7 @@ paths:
       description: "Изменять можно любое поле первого уровня, кроме ID. В случае если поле менять не надо - не добавлять его в тело запроса."
       operationId: "put_item"
       parameters:
+        - $ref: "#/parameters/token"
         - in: "body"
           name: "body"
           description: "Менять можно только поля первого уровня. Т.е. name поменять полность можно, а отдельно name->ru нельзя."
@@ -611,6 +585,7 @@ paths:
       description: "Формат запроса на первой итерации подтвержден. Пока на сервере не реализовано. Обратите внимание что точка входа может поменяться в дальнейшем"
       operationId: "delete_item"
       parameters:
+        - $ref: "#/parameters/token"
         - in: query
           name: id
           type: string
@@ -645,6 +620,8 @@ paths:
         - "Service app"
       summary: "Получение списка кухнь"
       operationId: "kitchens"
+      parameters:
+        - $ref: "#/parameters/token"
       responses:
         200:
           description: "Запрос выполен успешно"
@@ -664,6 +641,7 @@ paths:
       description: "Формат запроса на первой итерации подтвержден. Пока на сервере не реализовано. Обратите внимание что точка входа может поменяться в дальнейшем"
       operationId: "post_kitchen"
       parameters:
+        - $ref: "#/parameters/token"
         - in: "body"
           name: "body"
           description: "Pet object that needs to be added to the store"
@@ -687,6 +665,7 @@ paths:
       description: "Можно менять поле address"
       operationId: "put_kitchen"
       parameters:
+        - $ref: "#/parameters/token"
         - in: "body"
           name: "body"
           description: "Передается ID объекта у которого меняется поле address"
@@ -710,6 +689,7 @@ paths:
       description: "Формат запроса на первой итерации подтвержден. Пока на сервере не реализовано. Обратите внимание что точка входа может поменяться в дальнейшем"
       operationId: "delete_kitchen"
       parameters:
+        - $ref: "#/parameters/token"
         - in: query
           name: id
           type: string
@@ -737,14 +717,166 @@ paths:
                       type: string
                       format: uuid
 
+  /service/items_list_structure:
+    get:
+      tags:
+        - Structure
+      summary: "Получение структуры ингредиентов"
+      operationId: "items_list_structure"
+      parameters:
+        - $ref: "#/parameters/token"
+      responses:
+        200:
+          description: "Запрос выполен успешно"
+          schema:
+            type: object
+            required:
+              - "result"
+            properties:
+              result:
+                type: array
+                items:
+                  $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/Service/items_list_structure.yaml#/items_list_structure"
+    post:
+      tags:
+        - Structure
+      summary: "Добавление структуры ингредиентов"
+      operationId: "post_items_list_structure"
+      parameters:
+        - $ref: "#/parameters/token"
+        - in: "body"
+          name: "body"
+          required: true
+          schema:
+            $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/Service/items_list_structure.yaml#/items_list_structure"
+      responses:
+        200:
+          description: "Запрос выполен успешно"
+    put:
+      tags:
+        - Structure
+      summary: "Изменение структуры ингредиентов"
+      description: "Изменять можно любое поле первого уровня, кроме ID. В случае если поле менять не надо - не добавлять его в тело запроса."
+      operationId: "put_items_list_structure"
+      parameters:
+        - $ref: "#/parameters/token"
+        - in: "body"
+          name: "body"
+          description: "Менять можно только поля первого уровня. Т.е. name поменять полность можно, а отдельно name->ru нельзя."
+          required: true
+          schema:
+            $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/Service/items_list_structure.yaml#/items_list_structure"
+      responses:
+        201:
+          description: "Запрос выполен успешно"
+          schema:
+            type: object
+            required:
+              - "result"
+            properties:
+              result:
+                $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/Service/items_list_structure.yaml#/items_list_structure"
+    delete:
+      tags:
+        - Structure
+      summary: "Удаление структуры ингредиентов"
+      description: "Формат запроса на первой итерации подтвержден. Пока на сервере не реализовано. Обратите внимание что точка входа может поменяться в дальнейшем"
+      operationId: "delete_items_list_structure"
+      parameters:
+        - $ref: "#/parameters/token"
+        - in: query
+          name: id
+          type: string
+          format: uuid
+          required: true
+      responses:
+        200:
+          description: "Запрос выполен успешно"
+
+  /service/dishes_list_structure:
+    get:
+      tags:
+        - Structure
+      summary: "Получение структуры блюд"
+      operationId: "dishes_list_structure"
+      parameters:
+        - $ref: "#/parameters/token"
+      responses:
+        200:
+          description: "Запрос выполен успешно"
+          schema:
+            type: object
+            required:
+              - "result"
+            properties:
+              result:
+                type: array
+                items:
+                  $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/Service/dishes_list_structure.yaml#/dishes_list_structure"
+    post:
+      tags:
+        - Structure
+      summary: "Добавление структуры блюд"
+      operationId: "post_dishes_list_structure"
+      parameters:
+        - $ref: "#/parameters/token"
+        - in: "body"
+          name: "body"
+          required: true
+          schema:
+            $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/Service/dishes_list_structure.yaml#/dishes_list_structure"
+      responses:
+        200:
+          description: "Запрос выполен успешно"
+    put:
+      tags:
+        - Structure
+      summary: "Изменение структуры блюд"
+      description: "Изменять можно любое поле первого уровня, кроме ID. В случае если поле менять не надо - не добавлять его в тело запроса."
+      operationId: "put_dishes_list_structure"
+      parameters:
+        - $ref: "#/parameters/token"
+        - in: "body"
+          name: "body"
+          description: "Менять можно только поля первого уровня. Т.е. name поменять полность можно, а отдельно name->ru нельзя."
+          required: true
+          schema:
+            $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/Service/dishes_list_structure.yaml#/dishes_list_structure"
+      responses:
+        201:
+          description: "Запрос выполен успешно"
+          schema:
+            type: object
+            required:
+              - "result"
+            properties:
+              result:
+                $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/Service/dishes_list_structure.yaml#/dishes_list_structure"
+    delete:
+      tags:
+        - "Service app"
+      summary: "Удаление структуры блюд"
+      description: "Формат запроса на первой итерации подтвержден. Пока на сервере не реализовано. Обратите внимание что точка входа может поменяться в дальнейшем"
+      operationId: "delete_dishes_list_structure"
+      parameters:
+        - $ref: "#/parameters/token"
+        - in: query
+          name: id
+          type: string
+          format: uuid
+          required: true
+      responses:
+        200:
+          description: "Запрос выполен успешно"
 
   /service/sections_content:
     get:
       tags:
-        - "Service app"
+        - Structure
       summary: "Получение списка секций и их названий"
       operationId: "sections_content"
-
+      parameters:
+        - $ref: "#/parameters/token"
       responses:
         200:
           description: "Запрос выполен успешно"
@@ -759,11 +891,12 @@ paths:
                   $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/Service/sections_content.yaml#/sections_content"
     post:
       tags:
-        - "Service app"
+        - Structure
       summary: "Добавление секции в список"
       description: "Формат запроса на первой итерации подтвержден. Пока на сервере не реализовано. Обратите внимание что точка входа может поменяться в дальнейшем"
       operationId: "post_sections_content"
       parameters:
+        - $ref: "#/parameters/token"
         - in: "body"
           name: "body"
           description: "Pet object that needs to be added to the store"
@@ -775,11 +908,12 @@ paths:
           description: "Запрос выполен успешно"
     put:
       tags:
-        - "Service app"
+        - Structure
       summary: "Изменение секции"
       description: "Изменять можно любое поле первого уровня, кроме ID. В случае если поле менять не надо - не добавлять его в тело запроса."
       operationId: "put_sections_content"
       parameters:
+        - $ref: "#/parameters/token"
         - in: "body"
           name: "body"
           description: "Менять можно только поля первого уровня. Т.е. name поменять полность можно, а отдельно name->ru нельзя."
@@ -798,11 +932,148 @@ paths:
                 $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/Service/sections_content.yaml#/sections_content"
     delete:
       tags:
-        - "Service app"
+        - Structure
       summary: "Удаление секции из списка"
       description: "Формат запроса на первой итерации подтвержден. Пока на сервере не реализовано. Обратите внимание что точка входа может поменяться в дальнейшем"
       operationId: "delete_sections_content"
       parameters:
+        - $ref: "#/parameters/token"
+        - in: query
+          name: id
+          type: string
+          format: uuid
+          required: true
+      responses:
+        200:
+          description: "Запрос выполен успешно"
+
+  /service/operations:
+    get:
+      tags:
+        - Operations
+      summary: "Получение списка операций по ингредиентам"
+      parameters:
+        - $ref: "#/parameters/token"
+        - in: query
+          name: date_begin
+          type: string
+          format: date-time
+          required: true
+        - in: query
+          name: date_end
+          type: string
+          format: date-time
+          required: true
+      responses:
+        200:
+          description: "Запрос выполен успешно"
+          schema:
+            type: object
+            required:
+              - "result"
+            properties:
+              result:
+                type: array
+                items:
+                  $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/Service/operation.yaml#/operation"
+    post:
+      tags:
+        - Operations
+      summary: "Добавление операции по ингредиентам"
+      parameters:
+        - $ref: "#/parameters/token"
+        - in: "body"
+          name: "body"
+          required: true
+          schema:
+            $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/Service/operation.yaml#/operation"
+      responses:
+        201:
+          description: "Запрос выполен успешно"
+    put:
+      tags:
+        - Operations
+      summary: "Изменение операции по ингредиентам"
+      parameters:
+        - $ref: "#/parameters/token"
+        - in: "body"
+          name: "body"
+          required: true
+          schema:
+            $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/Service/operation.yaml#/operation"
+      responses:
+        201:
+          description: "Запрос выполен успешно"
+    delete:
+      tags:
+        - Operations
+      summary: "Удаление операции по ингредиентам"
+      parameters:
+        - $ref: "#/parameters/token"
+        - in: query
+          name: id
+          type: string
+          format: uuid
+          required: true
+      responses:
+        200:
+          description: "Запрос выполен успешно"
+
+
+  /service/contractors:
+    get:
+      tags:
+        - Users
+      summary: "Получение списка контракторов"
+      parameters:
+        - $ref: "#/parameters/token"
+      responses:
+        200:
+          description: "Запрос выполен успешно"
+          schema:
+            type: object
+            required:
+              - "result"
+            properties:
+              result:
+                type: array
+                items:
+                  $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/Service/contractor.yaml#/contractor"
+    post:
+      tags:
+        - Users
+      summary: "Добавление контрактора"
+      parameters:
+        - $ref: "#/parameters/token"
+        - in: "body"
+          name: "body"
+          required: true
+          schema:
+            $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/Service/contractor.yaml#/contractor"
+      responses:
+        201:
+          description: "Запрос выполен успешно"
+
+    put:
+      tags:
+        - Users
+      summary: "Изменение контрактора"
+      parameters:
+        - $ref: "#/parameters/token"
+        - in: "body"
+          name: "body"
+          required: true
+          schema:
+            $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/Service/contractor.yaml#/contractor"
+      responses:
+        201:
+          description: "Запрос выполен успешно"
+    delete:
+      tags:
+        - Users
+      summary: "Удаление контрактора"
+      parameters:
+        - $ref: "#/parameters/token"
         - in: query
           name: id
           type: string
@@ -820,6 +1091,8 @@ paths:
       summary: "Получение списка видов кухонь"
       description: "Возвращает все виды кухонь"
       operationId: "cuisines"
+      parameters:
+        - $ref: "#/parameters/token"
       responses:
         200:
           description: "Запрос выполен успешно"
@@ -839,6 +1112,7 @@ paths:
       description: "Добавить кухню с ее описанием"
       operationId: "post_cuisine"
       parameters:
+        - $ref: "#/parameters/token"
         - in: "body"
           name: "body"
           description: "Pet object that needs to be added to the store"
@@ -862,6 +1136,7 @@ paths:
       description: "Изменять можно любое поле первого уровня, кроме ID. В случае если поле менять не надо - не добавлять его в тело запроса."
       operationId: "put_cuisine"
       parameters:
+        - $ref: "#/parameters/token"
         - in: "body"
           name: "body"
           description: "Менять можно только поля первого уровня. Т.е. name поменять полность можно, а отдельно name->ru нельзя."
@@ -884,6 +1159,7 @@ paths:
       summary: "Удаление вида кухни"
       operationId: "delete_cuisine"
       parameters:
+        - $ref: "#/parameters/token"
         - in: query
           name: id
           type: string
@@ -894,6 +1170,73 @@ paths:
           description: "Запрос выполен успешно"
 
 
+parameters:
+  token:
+    in: query
+    name: token
+    type: string
+    format: uuid
+    required: true
+
+definitions:
+  operation:
+    type: object
+    required:
+      - "id"
+      - "document"
+      - "recipient"
+      - "supplier"
+      - "date"
+      - "type"
+      - "items"
+    properties:
+      id:
+        type: string
+        format: uuid
+      document:
+        type: string
+        example: "example12334"
+      recipient:
+        type: object
+        required:
+          - contractor
+          - person
+        properties:
+          contractor:
+            type: string
+            format: uuid
+          person:
+            type: string
+            format: uuid
+      supplier:
+        type: object
+        required:
+          - contractor
+          - person
+        properties:
+          contractor:
+            type: string
+            format: uuid
+          person:
+            type: string
+            format: uuid
+      type:
+        type: string
+        enum:
+          - purchase
+          - sale
+          - transfer
+          - return
+          - change
+      date:
+        type: string
+        format: date-time
+      items:
+        type: object
+        additionalProperties:
+          type: number
+        description: "Ключами являются id ингредиентов которые будут меняться"
+        example: {'02efc394-8329-420a-9aa9-ef4b3f01a7f1': 2.00, '02efc394-8329-420a-9aa9-ef4b3f01a7f2': 0.01}
 
 basePath: /alalmoskvin/cook4you.service/1.0.0
 # Added by API Auto Mocking Plugin
