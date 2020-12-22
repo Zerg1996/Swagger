@@ -51,6 +51,7 @@ operation:
 
 item_operation:
   allOf:
+    - $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/Service/operation.yaml#/operation"
     - type: object
       required:
         - type
@@ -63,10 +64,10 @@ item_operation:
             - transfer
             - return
             - change
-    - $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/Service/operation.yaml#/operation"
 
 product_operation:
   allOf:
+    - $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/Service/operation.yaml#/operation"
     - type: object
       required:
         - target_delivery_date_and_time
@@ -74,4 +75,3 @@ product_operation:
         target_delivery_date_and_time:
           type: "string"
           format: "date-time"
-    - $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/Service/operation.yaml#/operation"
