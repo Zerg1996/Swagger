@@ -18,6 +18,7 @@ dish:
     - "price_currency"
     - "changeable_ingredients"
     - "cook_specialization"
+    - "prepack"
     - "cooking_instruction"
   properties:
     id:
@@ -137,6 +138,9 @@ dish:
         type: string
       example: ['A', 'B']
       description: "Описание какие типы поваров могут готовить данное блюдо"
+    prepack:
+      type: boolean
+      description: "Является ли блюдо ингредиентом"
     cooking_instruction:
       type: object
       additionalProperties:

@@ -9,6 +9,7 @@ item:
     - "cost_price"
     - "price_currency"
     - "tax_rate_purchase"
+    - "prepack"
     - "availability"
   properties:
     id:
@@ -44,6 +45,10 @@ item:
     tax_rate_purchase:
       type: number
       format: float
+    prepack:
+      type: string
+      format: uuid
+      description: "Какому блюду соотвествует данный ингредиент"
     availability:
       type: object
       additionalProperties:

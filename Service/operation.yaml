@@ -42,6 +42,15 @@ operation:
     date:
       type: string
       format: date-time
+    type:
+      type: string
+      enum:
+        - purchase
+        - sale
+        - transfer
+        - return
+        - change
+        - production
     items:
       type: object
       additionalProperties:
@@ -52,18 +61,7 @@ operation:
 item_operation:
   allOf:
     - $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/Service/operation.yaml#/operation"
-    - type: object
-      required:
-        - type
-      properties:
-        type:
-          type: string
-          enum:
-            - purchase
-            - sale
-            - transfer
-            - return
-            - change
+
 
 product_operation:
   allOf:
