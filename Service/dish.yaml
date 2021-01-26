@@ -19,6 +19,7 @@ dish:
     - "changeable_ingredients"
     - "cook_specialization"
     - "prepack"
+    - "shelf_life"
     - "cooking_instruction"
   properties:
     id:
@@ -141,6 +142,9 @@ dish:
     prepack:
       type: boolean
       description: "Является ли блюдо ингредиентом"
+    shelf_life:
+      type: number
+      description: "Время годности блюда в секундах"
     cooking_instruction:
       type: object
       additionalProperties:

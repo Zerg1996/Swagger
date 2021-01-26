@@ -48,7 +48,7 @@ item:
     prepack:
       type: string
       format: uuid
-      description: "Какому блюду соотвествует данный ингредиент"
+      description: "Какому блюду соотвествует данный ингредиент, пустая строка если никакому"
     availability:
       type: object
       additionalProperties:
