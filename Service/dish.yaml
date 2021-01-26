@@ -144,6 +144,7 @@ dish:
       description: "Является ли блюдо ингредиентом"
     shelf_life:
       type: number
+      format: int64
       description: "Время годности блюда в секундах"
     cooking_instruction:
       type: object
