@@ -18,7 +18,9 @@ item:
       type: string
       enum:
         - "liter"
+        - "ml"
         - "kg"
+        - "gr"
         - "pcs"
         - "gal"
         - "lb"
