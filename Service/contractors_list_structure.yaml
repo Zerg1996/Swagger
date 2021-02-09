@@ -1,0 +1,24 @@
+contractors_list_structure:
+  type: object
+  required:
+    - "id"
+    - "name"
+    - "elements"
+  properties:
+    id:
+      type: string
+      format: uuid
+    parent_id:
+      type: string
+      format: uuid
+    elements:
+      type: array
+      items:
+        type: string
+        format: uuid
+      description: "Перечисление контрагентов которые находятся на этом уровне"
+    name:
+      type: object
+      additionalProperties:
+        type: string
+      example: {'ru': 'Лучший контрагент дня', 'en': 'Main contractors'}
