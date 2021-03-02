@@ -15,14 +15,16 @@ tax_fee_tip:
     type:
       format: string
       enum:
-        - tax
-        - fee
-        - tip
+        - "tax"
+        - "fee"
+        - "tip"
     name:
       type: string
+      example: "Best tip ever"
     rate:
       type: number
       format: float
+      example: 10.12
     measure:
       type: string
       example: "% or currency"
