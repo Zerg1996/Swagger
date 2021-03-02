@@ -33,6 +33,7 @@ paths:
       operationId: "order_possibility"
       description: "Вызов запроса на посылку смс на указанный номер; в смс будет 6-значный код; запрос стоит денег - не спамьте им"
       parameters:
+        - $ref: "#/parameters/token"
         - in: "query"
           name: city_street_building
           type: string
@@ -83,7 +84,7 @@ paths:
         - "Help"
       summary: "Проверка уникальности пользовательской информации"
       operationId: "check_unique_data"
-      description: "Проверяет есть ли пользователь с данной информацией"
+      description: "МОЖЕТ НЕ НУЖЕН ЭТОТ ЗАПРОС? Проверяет есть ли пользователь с данной информацией"
       parameters:
         - in: "query"
           name: phone
@@ -146,14 +147,7 @@ paths:
               - "result"
             properties:
               result:
-                type: object
-                required:
-                  - "ok"
-                properties:
-                  ok:
-                    type: boolean
-                    description: "Корректен ли пароль или нет"
-                    example: false
+                $ref: 'https://raw.githubusercontent.com/Zerg1996/Swagger/master/User/customer.yaml#/customer'
 
   /user/orders:
     get:
@@ -162,6 +156,7 @@ paths:
       summary: "Получение списка заказов"
       operationId: "user_app_get_order"
       parameters:
+        - $ref: "#/parameters/token"
         - in: query
           name: customer
           type: string
@@ -186,6 +181,7 @@ paths:
       summary: "Добавление заказа"
       operationId: "post_order"
       parameters:
+        - $ref: "#/parameters/token"
         - in: "body"
           name: "body"
           description: "Добавить заказ пользователя"
@@ -211,6 +207,7 @@ paths:
       description: "В качестве параметров - информация по которой будет искаться пользователь, хотя бы одно из полей обязательно."
       operationId: "customers"
       parameters:
+        - $ref: "#/parameters/token"
         - in: query
           name: phone
           type: string
@@ -234,6 +231,7 @@ paths:
       summary: "Записать свою информацию"
       operationId: "post_customer"
       parameters:
+        - $ref: "#/parameters/token"
         - in: query
           name: otp
           type: string
@@ -262,6 +260,7 @@ paths:
       description: "Изменяет информацию о пользователе, в случае изменения phone требуется корректный otp"
       operationId: "put_customer"
       parameters:
+        - $ref: "#/parameters/token"
         - in: query
           name: otp
           type: string
@@ -292,6 +291,7 @@ paths:
       description: "Возвращает блюда которые доступны на данной кухне, если параметры не заполнены - возвращает все"
       operationId: "dishes"
       parameters:
+        - $ref: "#/parameters/token"
         - in: query
           name: kitchens
           required: true
@@ -319,6 +319,7 @@ paths:
       description: "Получение кухни по адресу"
       operationId: "kitchens"
       parameters:
+        - $ref: "#/parameters/token"
         - in: query
           required: true
           name: city_street_building
@@ -344,6 +345,8 @@ paths:
       summary: "Получение списка видов кухнь"
       description: "Возвращает список видов всех кухонь с описанием"
       operationId: "cuisines"
+      parameters:
+        - $ref: "#/parameters/token"
       responses:
         200:
           description: "Запрос выполен успешно"
@@ -364,6 +367,8 @@ paths:
       summary: "Получение списка секций и их названий"
       description: ""
       operationId: "sections_content"
+      parameters:
+        - $ref: "#/parameters/token"
       responses:
         200:
           description: "Запрос выполен успешно"
@@ -384,6 +389,8 @@ paths:
       summary: "Получение списка ингридиентов"
       description: "Получение списка ингридиентов"
       operationId: "items"
+      parameters:
+        - $ref: "#/parameters/token"
       responses:
         200:
           description: "Получить ингридиенты на данных кухнях или кухне"
@@ -397,6 +404,13 @@ paths:
                 items:
                   $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/User/item.yaml#/item"
 
+parameters:
+  token:
+    in: query
+    name: token
+    type: string
+    format: uuid
+    required: true
 
 # Added by API Auto Mocking Plugin
 host: virtserver.swaggerhub.com

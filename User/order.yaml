@@ -13,6 +13,7 @@ order:
     - "date_and_time"
     - "status"
     - "target_delivery_date_and_time"
+    - "tip"
     - "type"
   properties:
     id:
@@ -53,6 +54,9 @@ order:
       enum:
         - "order"
         - "template"
+    tip:
+      type: number
+      format: float
     repetitive:
       type: object
       additionalProperties:
@@ -69,6 +73,7 @@ post_order:
     - "positions"
     - "delivery_address"
     - "target_delivery_date_and_time"
+    - "tip"
     - "type"
   properties:
     id:
@@ -94,6 +99,9 @@ post_order:
       enum:
         - "order"
         - "template"
+    tip:
+      type: number
+      format: float
     repetitive:
       type: object
       additionalProperties:
@@ -313,6 +321,9 @@ put_order:
         - "completed"
         - "canceled"
         - "rejected"
+    tip:
+      type: number
+      format: float
     repetitive:
       type: object
       additionalProperties:

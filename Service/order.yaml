@@ -14,6 +14,7 @@ order:
     - "status"
     - "target_delivery_date_and_time"
     - "type"
+    - "tip"
     - "incompany_order"
   properties:
     id:
@@ -67,6 +68,9 @@ order:
       type: boolean
       example: True
       description: 'Является ли заказ пользовательским или внутри компании'
+    tip:
+      type: number
+      format: float
     repetitive:
       type: object
       additionalProperties:
@@ -85,6 +89,7 @@ post_order:
     - "target_delivery_date_and_time"
     - "status"
     - "type"
+    - "tip"
     - "incompany_order"
   properties:
     id:
@@ -130,6 +135,9 @@ post_order:
       type: boolean
       example: False
       description: 'Является ли заказ пользовательским или внутри компании'
+    tip:
+      type: number
+      format: float
     repetitive:
       type: object
       additionalProperties:
@@ -375,6 +383,9 @@ put_order:
         - "completed"
         - "canceled"
         - "rejected"
+    tip:
+      type: number
+      format: float
     repetitive:
       type: object
       additionalProperties:
