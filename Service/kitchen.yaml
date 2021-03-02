@@ -5,6 +5,7 @@ kitchen:
     - "name"
     - "address"
     - "weight"
+    - "taxes_fees_tips"
     - "day_orders"
     - "week_orders"
     - "months_orders"
@@ -24,6 +25,10 @@ kitchen:
       type: number
       format: float
       example: 0.9
+    taxes_fees_tips:
+      type: array
+      items:
+        $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/Service/taxes_fees_tips.yaml#/tax_fee_tip"
     day_orders:
       type: integer
       format: int32
@@ -46,6 +51,7 @@ post_kitchen:
     - "id"
     - "address"
     - "name"
+    - "taxes_fees_tips"
   properties:
     id:
       type: string
@@ -56,3 +62,8 @@ post_kitchen:
     name:
       type: string
       example: "Москва"
+    taxes_fees_tips:
+      type: array
+      items:
+        $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/Service/taxes_fees_tips.yaml#/tax_fee_tip"
+
