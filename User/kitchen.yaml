@@ -18,4 +18,5 @@ kitchen:
     taxes_fees_tips:
       type: array
       items:
-        $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/Service/taxes_fees_tips.yaml#/tax_fee_tip"
+        type: string
+        format: uuid
