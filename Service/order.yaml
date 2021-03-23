@@ -324,7 +324,7 @@ address:
   type: object
   required:
     - "city_street_building"
-    - "default"
+    - "coordinates"
   properties:
     city_street_building:
       type: string
@@ -341,6 +341,18 @@ address:
     access_code:
       type: string
       example: "#123#"
+    coordinates:
+      type: object
+      required:
+        - "latitude"
+        - "longitude"
+      properties:
+        latitude:
+          type: number
+          format: float
+        longitude:
+          type: number
+          format: float
     comment:
       type: string
       example: "Вьезд со двора"

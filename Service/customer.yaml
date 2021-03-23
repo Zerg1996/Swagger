@@ -123,7 +123,6 @@ post_customer:
     - "addresses"
     - "payment_data"
     - "login"
-    - "password"
   properties:
     id:
       type: string
@@ -150,7 +149,3 @@ post_customer:
     login:
       type: string
       example: "Alex1946"
-    password:
-      type: string
-      description: "Это не пароль, а хеш от него! Пароли на сервере не хранятся, только хеши"
-      example: "123XDCM324"

@@ -67,6 +67,7 @@ address:
   required:
     - "city_street_building"
     - "default"
+    - "coordinates"
   properties:
     city_street_building:
       type: string
@@ -86,6 +87,18 @@ address:
     comment:
       type: string
       example: "Вьезд со двора"
+    coordinates:
+      type: object
+      required:
+        - "latitude"
+        - "longitude"
+      properties:
+        latitude:
+          type: number
+          format: float
+        longitude:
+          type: number
+          format: float
     default:
       type: boolean
       example: true
@@ -122,7 +135,6 @@ post_customer:
     - "addresses"
     - "payment_data"
     - "login"
-    - "password"
   properties:
     id:
       type: string
@@ -148,7 +160,3 @@ post_customer:
     login:
       type: string
       example: "Alex1946"
-    password:
-      type: string
-      description: "Это не пароль, а хеш от него! Пароли на сервере не хранятся, только хеши"
-      example: "123XDCM324"

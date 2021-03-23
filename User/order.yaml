@@ -262,7 +262,7 @@ address:
   type: object
   required:
     - "city_street_building"
-    - "default"
+    - "coordinates"
   properties:
     city_street_building:
       type: string
@@ -282,6 +282,18 @@ address:
     comment:
       type: string
       example: "Вьезд со двора"
+    coordinates:
+      type: object
+      required:
+        - "latitude"
+        - "longitude"
+      properties:
+        latitude:
+          type: number
+          format: float
+        longitude:
+          type: number
+          format: float
 
 put_order:
   type: object
