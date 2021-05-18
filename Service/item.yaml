@@ -8,6 +8,7 @@ item:
     - "calorie_content"
     - "cost_price"
     - "price_currency"
+    - "photo"
     - "tax_rate_purchase"
     - "prepack"
     - "availability"
@@ -25,6 +26,9 @@ item:
       additionalProperties:
         type: string
       example: {"ru": "Очень большая", "en": "Very big"}
+    photo:
+      type: string
+      description: "Ссылка на картинку"
     unit:
       type: string
       enum:

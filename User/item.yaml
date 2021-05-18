@@ -4,6 +4,7 @@ item:
     - "id"
     - "name"
     - "unit"
+    - "photo"
     - "calorie_content"
   properties:
     id:
@@ -14,6 +15,9 @@ item:
       additionalProperties:
         type: string
       example: {"ru": "Картошка", "en": "Potato"}
+    photo:
+      type: string
+      description: "Ссылка на картинку"
     unit:
       type: string
       enum:
