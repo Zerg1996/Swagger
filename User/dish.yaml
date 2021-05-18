@@ -10,7 +10,9 @@ dish:
     - "weight"
     - "calorie_content"
     - "availability"
-    - "ingredients"
+    - "other_ingredients"
+    - "side_dishes"
+    - "meat_options"
     - 'cook_specialization'
     - "price"
     - "price_currency"
@@ -80,7 +82,7 @@ dish:
         "3fa85f64-5717-4562-b3fc-2c963f66afa6": {"availability": True, "count": 2}
         "3fa85f64-5717-4562-b3fc-2c963f66afa7": {"availability": False, "count": 0}
       description: "kitchen_id: {availability: boolean, count: int}"
-    ingredients:
+    other_ingredients:
       type: object
       additionalProperties:
         type: object
@@ -100,6 +102,42 @@ dish:
             format: float
       example:
         "3fa85f64-5717-4562-b3fc-2c963f66afa6": { 'gross': 1.0, 'net': 1.0, 'output': 1.0 }
+    meat_options:
+      type: object
+        additionalProperties:
+          type: object
+          required:
+            - "gross"
+            - "net"
+            - "output"
+          properties:
+            gross:
+              type: number
+              format: float
+            net:
+              type: number
+              format: float
+            output:
+              type: number
+              format: float
+      side_dishes:
+        type: object
+          additionalProperties:
+            type: object
+            required:
+              - "gross"
+              - "net"
+              - "output"
+            properties:
+              gross:
+                type: number
+                format: float
+              net:
+                type: number
+                format: float
+              output:
+                type: number
+                format: float
     price_currency:
       type: string
       example: "USD"
