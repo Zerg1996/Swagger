@@ -104,40 +104,40 @@ dish:
         "3fa85f64-5717-4562-b3fc-2c963f66afa6": { 'gross': 1.0, 'net': 1.0, 'output': 1.0 }
     meat_options:
       type: object
-        additionalProperties:
-          type: object
-          required:
-            - "gross"
-            - "net"
-            - "output"
-          properties:
-            gross:
-              type: number
-              format: float
-            net:
-              type: number
-              format: float
-            output:
-              type: number
-              format: float
-      side_dishes:
+      additionalProperties:
         type: object
-          additionalProperties:
-            type: object
-            required:
-              - "gross"
-              - "net"
-              - "output"
-            properties:
-              gross:
-                type: number
-                format: float
-              net:
-                type: number
-                format: float
-              output:
-                type: number
-                format: float
+        required:
+          - "gross"
+          - "net"
+          - "output"
+        properties:
+          gross:
+            type: number
+            format: float
+          net:
+            type: number
+            format: float
+          output:
+            type: number
+            format: float
+    side_dishes:
+      type: object
+      additionalProperties:
+        type: object
+        required:
+          - "gross"
+          - "net"
+          - "output"
+        properties:
+          gross:
+            type: number
+            format: float
+          net:
+            type: number
+            format: float
+          output:
+            type: number
+            format: float
     price_currency:
       type: string
       example: "USD"
