@@ -162,13 +162,15 @@ dish:
         items:
           type: object
           properties:
-            multiplier:
+            count:
               type: number
               format: float
             price:
               type: number
               format: float
               description: "Валюта такая же как и у блюда"
+            default:
+              type: boolean
       example:
         "3fa85f64-5717-4562-b3fc-2c963f66afa6": [{'count': 0, 'price': -2}]
         "3fa85f64-5717-4562-b3fc-2c963f66afa7": [{'count': 0, 'price': -3}, {'count': 2, 'price': 3}]
