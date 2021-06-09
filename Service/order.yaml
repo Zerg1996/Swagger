@@ -157,6 +157,8 @@ post_order_dish:
     - "cook_specialization"
     - "status"
     - "incompany_order"
+    - "price_at_order"
+    - "price_currency"
   properties:
     id:
       type: string
@@ -206,6 +208,13 @@ post_order_dish:
       type: boolean
       example: True
       description: 'Является ли блюдо из заказа пользовательским или внутри компании'
+    price_at_order:
+      type: number
+      format: float
+      description: "Цена на момент заказа"
+    price_currency:
+      type: string
+      example: "USD"
 
 order_dish:
   type: object
@@ -222,6 +231,8 @@ order_dish:
     - "status"
     - "date_and_time"
     - "incompany_order"
+    - "price_at_order"
+    - "price_currency"
   properties:
     id:
       type: string
@@ -277,6 +288,13 @@ order_dish:
       type: boolean
       example: True
       description: 'Является ли блюдо из заказа пользовательским или внутри компании'
+    price_at_order:
+      type: number
+      format: float
+      description: "Цена на момент заказа"
+    price_currency:
+      type: string
+      example: "USD"
 
 order_position_date_and_time:
   type: object
