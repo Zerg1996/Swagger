@@ -75,6 +75,8 @@ post_order:
     - "target_delivery_date_and_time"
     - "tip"
     - "type"
+    - "amount"
+    - "payment_method_nonce"
   properties:
     id:
       type: string
@@ -107,6 +109,11 @@ post_order:
       additionalProperties:
         type: boolean
       example: {'mon': 1, 'tue': 1, 'wed': 0, 'thu': 0, 'fri': 0, 'sat': 1, 'sun': 1}
+    amount:
+      type: string
+      example: "1000.00"
+    payment_method_nonce:
+      type: string
 
 post_order_dish:
   type: object
@@ -312,50 +319,3 @@ address:
         longitude:
           type: number
           format: float
-
-put_order:
-  type: object
-  description: ""
-  required:
-    - "id"
-    - "customer"
-    - "kitchen"
-    - "positions"
-    - "delivery_address"
-    - "target_delivery_date_and_time"
-    - "status"
-    - "type"
-    - "incompany_order"
-  properties:
-    id:
-      type: string
-      format: uuid
-    kitchen:
-      type: string
-      format: uuid
-    delivery_address:
-      $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/User/order.yaml#/address"
-    delivery_comment:
-      type: string
-      example: ""
-      desctiption: "В случае неуспешного заказа курьер может написать комментарии"
-    status:
-      type: "string"
-      enum:
-        - "created"
-        - "in_cooking"
-        - "waiting_for_packaging"
-        - "in_packaging"
-        - "waiting_for_delivery"
-        - "in_delivery"
-        - "completed"
-        - "canceled"
-        - "rejected"
-    tip:
-      type: number
-      format: float
-    repetitive:
-      type: object
-      additionalProperties:
-        type: string
-      example: {'mon': 1, 'tue': 1, 'wed': 0, 'thu': 0, 'fri': 0, 'sat': 1, 'sun': 1}
