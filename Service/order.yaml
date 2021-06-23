@@ -8,6 +8,7 @@ order:
     - "packer"
     - "courier"
     - "positions"
+    - "cutlery"
     - "delivery_address"
     - "delivery_comment"
     - "date_and_time"
@@ -36,6 +37,10 @@ order:
       type: array
       items:
         $ref: 'https://raw.githubusercontent.com/Zerg1996/Swagger/master/Service/order.yaml#/order_dish'
+    cutlery:
+      type: integer
+      example: 2
+      description: "Количество столовых приборов"
     delivery_address:
       $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/Service/order.yaml#/address"
     delivery_comment:
