@@ -76,6 +76,7 @@ post_order:
     - "customer"
     - "kitchen"
     - "positions"
+    - "cutlery"
     - "delivery_address"
     - "target_delivery_date_and_time"
     - "tip"
@@ -96,6 +97,10 @@ post_order:
       type: array
       items:
         $ref: 'https://raw.githubusercontent.com/Zerg1996/Swagger/master/User/order.yaml#/post_order_dish'
+    cutlery:
+      type: integer
+      example: 2
+      description: "Количество столовых приборов"
     delivery_address:
       $ref: "https://raw.githubusercontent.com/Zerg1996/Swagger/master/User/order.yaml#/address"
     target_delivery_date_and_time:
