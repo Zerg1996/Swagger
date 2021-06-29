@@ -1,0 +1,32 @@
+tax_fee_tip:
+  type: object
+  required:
+    - "id"
+    - "type"
+    - "name"
+    - "rate"
+    - "measure"
+    - "included_to_the_price"
+  properties:
+    id:
+      type: string
+      format: uuid
+      example: d290f1ee-6c54-4b01-90e6-d701748f0851
+    type:
+      type: string
+      enum:
+        - "tax"
+        - "fee"
+        - "tip"
+    name:
+      type: string
+      example: "Best tip ever"
+    rate:
+      type: number
+      format: float
+      example: 10.12
+    measure:
+      type: string
+      example: "% or currency"
+    included_to_the_price:
+      type: boolean
