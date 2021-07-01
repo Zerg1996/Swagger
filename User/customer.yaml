@@ -64,8 +64,8 @@ customer:
       description: "Какой тип надо уточнить"
     favourites:
       type: array
-        items:
-          $ref: 'https://raw.githubusercontent.com/Zerg1996/Swagger/master/User/customer.yaml#/favorite_dish'
+      items:
+        $ref: 'https://raw.githubusercontent.com/Zerg1996/Swagger/master/User/customer.yaml#/favorite_dish'
 
 address:
   type: object
