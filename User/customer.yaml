@@ -11,6 +11,7 @@ customer:
     - "level"
     - "order_statistic"
     - "bonus"
+    - "favourites"
   properties:
     id:
       type: string
@@ -61,6 +62,10 @@ customer:
       format: int32
       example: 0
       description: "Какой тип надо уточнить"
+    favourites:
+      type: array
+        items:
+          $ref: 'https://raw.githubusercontent.com/Zerg1996/Swagger/master/User/customer.yaml#/favorite_dish'
 
 address:
   type: object
@@ -160,3 +165,24 @@ post_customer:
     login:
       type: string
       example: "Alex1946"
+
+favorite_dish:
+  type: object
+  required:
+    - "dish"
+    - "changeable_ingredients"
+  properties:
+    dish:
+      type: string
+      format: uuid
+      example: d290f1ee-6c54-4b01-90e6-d701748f0851
+      description: "id любимого блюда"
+    changed_ingredients:
+      type: object
+      additionalProperties:
+        type: number
+        format: float
+      example:
+        "3fa85f64-5717-4562-b3fc-2c963f66afa6": 0.5
+        "3fa85f64-5717-4562-b3fc-2c963f66afa7": 2
+      description: "ingredient_id(uuid): multiplier(float)"
