@@ -67,6 +67,9 @@ order:
       additionalProperties:
         type: string
       example: {'mon': True, 'tue': True, 'wed': False, 'thu': False, 'fri': False, 'sat': True, 'sun': True}
+    alias:
+      type: string
+      format: uuid
 
 post_order:
   type: object
@@ -124,6 +127,8 @@ post_order:
       example: "1000.00"
     payment_method_nonce:
       type: string
+    save_alias:
+      type: boolean
 
 post_order_dish:
   type: object
