@@ -129,6 +129,18 @@ post_order:
       type: string
     save_alias:
       type: boolean
+    payment:
+      type: object
+      required:
+        - price_currency
+        - apple_pay_token
+      properties:
+        price_currency:
+          type: string
+          example: "USD"
+        apple_pay_token:
+          type: string
+          example: "Base64 ApplePay token"
 
 post_order_dish:
   type: object
