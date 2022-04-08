@@ -1,0 +1,48 @@
+item_zozh:
+  type: object
+  required:
+    - "id"
+    - "name"
+    - "unit"
+    - "photo"
+    - "calorie_content"
+    - 'fats_content'
+    - 'proteins_content'
+    - 'carbohydrates_content'
+    - 'vegetarian_ingredient'
+  properties:
+    id:
+      type: string
+      format: uuid
+    name:
+      type: object
+      additionalProperties:
+        type: string
+      example: {"ru": "Картошка", "en": "Potato"}
+    photo:
+      type: string
+      description: "Ссылка на картинку"
+    unit:
+      type: string
+      enum:
+        - "liter"
+        - "ml"
+        - "kg"
+        - "gr"
+        - "pcs"
+        - "gal"
+        - "lb"
+    calorie_content:
+      type: number
+      format: float
+    fats_content:
+      type: number
+      format: float
+    proteins_content:
+      type: number
+      format: float
+    carbohydrates_content:
+      type: number
+      format: float
+    vegetarian_ingredient:
+      type: boolean

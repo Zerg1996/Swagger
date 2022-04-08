@@ -1,0 +1,210 @@
+dish_zozh:
+  type: object
+  required:
+    - "id"
+    - "name"
+    - "photo"
+    - "description"
+    - "cuisine"
+    - "unit"
+    - "weight"
+    - "calorie_content"
+    - 'fats_content'
+    - 'proteins_content'
+    - 'carbohydrates_content'
+    - 'vegetarian_ingredient'
+    - "availability"
+    - "other_ingredients"
+    - "side_dishes"
+    - "meat_options"
+    - "price"
+    - "cost_price"
+    - "staff_cost"
+    - "margin"
+    - "price_currency"
+    - "changeable_ingredients"
+    - "cook_specialization"
+    - "prepack"
+    - "shelf_life"
+    - "cooking_instruction"
+  properties:
+    id:
+      type: string
+      format: uuid
+      example: d290f1ee-6c54-4b01-90e6-d701748f0851
+    name:
+      type: object
+      additionalProperties:
+        type: string
+      example: {"ru": "Картошка с мясом", "en": "Potatoe with meat"}
+    photo:
+      type: string
+      description: "Ссылка на картинку"
+      example: "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png"
+    description:
+      type: object
+      additionalProperties:
+        type: string
+      example: {"ru": "Блюдо дня", "en": "Plate of a day"}
+    cuisine:
+      type: array
+      items:
+        type: string
+        format: uuid
+      example: [d290f1ee-6c54-4b01-90e6-d701748f0851, d290f1ee-6c54-4b01-90e6-d701748f0852, d290f1ee-6c54-4b01-90e6-d701748f0853]
+    unit:
+      type: string
+      enum:
+        - "liter"
+        - "ml"
+        - "kg"
+        - "gr"
+        - "pcs"
+        - "gal"
+        - "lb"
+    weight:
+      type: number
+      format: float
+      example: 1.23
+    calorie_content:
+      type: number
+      format: int32
+      example: 1234
+      description: "Содержание калорий в блюде. Считается на сервере исходя из ингридиентов входящих в блюдо и их количества."
+    fats_content:
+      type: number
+      format: float
+    proteins_content:
+      type: number
+      format: float
+    carbohydrates_content:
+      type: number
+      format: float
+    vegetarian_ingredient:
+      type: boolean
+    availability:
+      type: object
+      additionalProperties:
+        type: object
+        required:
+          - "availability"
+          - "count"
+        properties:
+          availability:
+            type: boolean
+          count:
+            type: integer
+      example:
+        "3fa85f64-5717-4562-b3fc-2c963f66afa6": {"availability": True, "count": 2}
+        "3fa85f64-5717-4562-b3fc-2c963f66afa7": {"availability": False, "count": 0}
+      description: "kitchen_id: {availability: boolean, count: int}"
+    other_ingredients:
+      type: object
+      additionalProperties:
+        type: object
+        required:
+          - "gross"
+          - "net"
+          - "output"
+        properties:
+          gross:
+            type: number
+            format: float
+          net:
+            type: number
+            format: float
+          output:
+            type: number
+            format: float
+      example:
+        "3fa85f64-5717-4562-b3fc-2c963f66afa6": { 'gross': 1.0, 'net': 1.0, 'output': 1.0 }
+    meat_options:
+      type: object
+      additionalProperties:
+        type: object
+        required:
+          - "gross"
+          - "net"
+          - "output"
+        properties:
+          gross:
+            type: number
+            format: float
+          net:
+            type: number
+            format: float
+          output:
+            type: number
+            format: float
+    side_dishes:
+      type: object
+      additionalProperties:
+        type: object
+        required:
+          - "gross"
+          - "net"
+          - "output"
+        properties:
+          gross:
+            type: number
+            format: float
+          net:
+            type: number
+            format: float
+          output:
+            type: number
+            format: float
+    price_currency:
+      type: string
+      example: "USD"
+    price:
+      type: number
+      format: float
+    cost_price:
+      type: number
+      format: float
+      description: "Себестоимость товара, считается на сервере."
+    staff_cost:
+      type: number
+      format: float
+    margin:
+      type: number
+      format: float
+    changeable_ingredients:
+      type: object
+      additionalProperties:
+        type: array
+        items:
+          type: object
+          properties:
+            count:
+              type: number
+              format: float
+            price:
+              type: number
+              format: float
+              description: "Валюта такая же как и у блюда"
+            default:
+              type: boolean
+      example:
+        "3fa85f64-5717-4562-b3fc-2c963f66afa6": [{'count': 0, 'price': -2}]
+        "3fa85f64-5717-4562-b3fc-2c963f66afa7": [{'count': 0, 'price': -3}, {'count': 2, 'price': 3}]
+      description: "ingredient_id: [{multiplier: ..., price: ...}] Значение - массив из float"
+    cook_specialization:
+      type: array
+      items:
+        type: string
+      example: ['A', 'B']
+      description: "Описание какие типы поваров могут готовить данное блюдо"
+    prepack:
+      type: boolean
+      description: "Является ли блюдо ингредиентом"
+    shelf_life:
+      type: number
+      format: int64
+      description: "Время годности блюда в секундах"
+    cooking_instruction:
+      type: object
+      additionalProperties:
+        type: string
+      example: {"ru": "Готовить до готовности", "en": "Cook until good"}

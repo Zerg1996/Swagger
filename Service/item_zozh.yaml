@@ -1,0 +1,89 @@
+item_zozh:
+  type: object
+  required:
+    - "id"
+    - "name"
+    - "description"
+    - "unit"
+    - "calorie_content"
+    - 'fats_content'
+    - 'proteins_content'
+    - 'carbohydrates_content'
+    - 'vegetarian_ingredient'
+    - "cost_price"
+    - "price_currency"
+    - "photo"
+    - "tax_rate_purchase"
+    - "prepack"
+    - "availability"
+  properties:
+    id:
+      type: string
+      format: uuid
+    name:
+      type: object
+      additionalProperties:
+        type: string
+      example: {"ru": "Картошка", "en": "Potatoe"}
+    description:
+      type: object
+      additionalProperties:
+        type: string
+      example: {"ru": "Очень большая", "en": "Very big"}
+    photo:
+      type: string
+      description: "Ссылка на картинку"
+    unit:
+      type: string
+      enum:
+        - "liter"
+        - "ml"
+        - "kg"
+        - "gr"
+        - "pcs"
+        - "gal"
+        - "lb"
+    calorie_content:
+      type: number
+      format: float
+    fats_content:
+      type: number
+      format: float
+    proteins_content:
+      type: number
+      format: float
+    carbohydrates_content:
+      type: number
+      format: float
+    vegetarian_ingredient:
+      type: boolean
+    price_currency:
+      type: string
+      example: "USD"
+    cost_price:
+      type: number
+      format: float
+    tax_rate_purchase:
+      type: number
+      format: float
+    prepack:
+      type: string
+      format: uuid
+      description: "Какому блюду соотвествует данный ингредиент, пустая строка если никакому"
+    availability:
+      type: object
+      additionalProperties:
+        type: object
+        required:
+          - "quantity"
+          - "quantity_notification"
+        properties:
+          quantity:
+            type: number
+            format: float
+          quanity_notification:
+            type: number
+            format: float
+      example:
+        "3fa85f64-5717-4562-b3fc-2c963f66afa6": {'quantity': 0.2, "quantity_notification": 0.1}
+        "3fa85f64-5717-4562-b3fc-2c963f66afa7": {'quantity': 2.3, "quantity_notification": 5.0}
