@@ -10,6 +10,8 @@ item_zozh:
     - 'proteins_content'
     - 'carbohydrates_content'
     - 'vegetarian_ingredient'
+    - "vegan_ingredient"
+    - "pescatarian_ingredient"
     - "cost_price"
     - "price_currency"
     - "photo"
@@ -56,6 +58,10 @@ item_zozh:
       type: number
       format: float
     vegetarian_ingredient:
+      type: boolean
+    vegan_ingredient:
+      type: boolean
+    pescatarian_ingredient:
       type: boolean
     price_currency:
       type: string
