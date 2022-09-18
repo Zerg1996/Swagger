@@ -12,6 +12,7 @@ dish_zozh:
     - 'fats_content'
     - 'proteins_content'
     - 'carbohydrates_content'
+    - 'water_content'
     - 'vegetarian_ingredient'
     - "availability"
     - "other_ingredients"
@@ -78,6 +79,9 @@ dish_zozh:
       type: number
       format: float
     carbohydrates_content:
+      type: number
+      format: float
+    water_content:
       type: number
       format: float
     vegetarian_ingredient:
